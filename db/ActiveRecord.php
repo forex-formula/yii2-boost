@@ -2,13 +2,12 @@
 
 namespace yii\boost\db;
 
-use Exception,
-    FB,
-    yii\boost\base\InvalidModelException,
-    yii\helpers\VarDumper,
-    Yii,
-    yii\db\ActiveRecord as YiiActiveRecord;
-
+use Exception;
+use FB;
+use yii\boost\base\InvalidModelException;
+use yii\helpers\VarDumper;
+use Yii;
+use yii\db\ActiveRecord as YiiActiveRecord;
 
 class ActiveRecord extends YiiActiveRecord
 {
