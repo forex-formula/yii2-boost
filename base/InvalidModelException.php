@@ -2,12 +2,11 @@
 
 namespace yii\boost\base;
 
-use Exception,
-    yii\base\Model,
-    UnexpectedValueException,
-    yii\helpers\VarDumper,
-    yii\boost\db\ActiveRecord as YiiBoostActiveRecord;
-
+use Exception;
+use yii\base\Model;
+use UnexpectedValueException;
+use yii\helpers\VarDumper;
+use yii\boost\db\ActiveRecord as YiiBoostActiveRecord;
 
 class InvalidModelException extends UnexpectedValueException
 {
