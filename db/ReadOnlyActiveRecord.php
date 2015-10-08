@@ -4,7 +4,6 @@ namespace yii\boost\db;
 
 use yii\base\NotSupportedException;
 
-
 class ReadOnlyActiveRecord extends ActiveRecord
 {
 
