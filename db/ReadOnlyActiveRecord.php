@@ -76,7 +76,7 @@ class ReadOnlyActiveRecord extends ActiveRecord
      */
     public function beforeSave($insert)
     {
-        return false;
+        throw new NotSupportedException(__METHOD__ . ' is not supported.');
     }
 
     /**
@@ -84,6 +84,7 @@ class ReadOnlyActiveRecord extends ActiveRecord
      */
     public function afterSave($insert, $changedAttributes)
     {
+        throw new NotSupportedException(__METHOD__ . ' is not supported.');
     }
 
     /**
@@ -107,7 +108,7 @@ class ReadOnlyActiveRecord extends ActiveRecord
      */
     public function beforeDelete()
     {
-        return false;
+        throw new NotSupportedException(__METHOD__ . ' is not supported.');
     }
 
     /**
@@ -115,5 +116,6 @@ class ReadOnlyActiveRecord extends ActiveRecord
      */
     public function afterDelete()
     {
+        throw new NotSupportedException(__METHOD__ . ' is not supported.');
     }
 }
