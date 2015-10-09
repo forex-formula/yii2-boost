@@ -9,6 +9,7 @@ class ReadOnlyActiveRecord extends ActiveRecord
 
     /**
      * @inheritdoc
+     * @throw NotSupportedException
      */
     public static function updateAll($attributes, $condition = '', $params = [])
     {
@@ -17,6 +18,7 @@ class ReadOnlyActiveRecord extends ActiveRecord
 
     /**
      * @inheritdoc
+     * @throw NotSupportedException
      */
     public static function updateAllCounters($counters, $condition = '', $params = [])
     {
@@ -25,6 +27,7 @@ class ReadOnlyActiveRecord extends ActiveRecord
 
     /**
      * @inheritdoc
+     * @throw NotSupportedException
      */
     public static function deleteAll($condition = '', $params = [])
     {
@@ -33,6 +36,7 @@ class ReadOnlyActiveRecord extends ActiveRecord
 
     /**
      * @inheritdoc
+     * @throw NotSupportedException
      */
     public function save($runValidation = true, $attributeNames = null)
     {
@@ -41,6 +45,7 @@ class ReadOnlyActiveRecord extends ActiveRecord
 
     /**
      * @inheritdoc
+     * @throw NotSupportedException
      */
     public function insert($runValidation = true, $attributes = null)
     {
@@ -49,6 +54,7 @@ class ReadOnlyActiveRecord extends ActiveRecord
 
     /**
      * @inheritdoc
+     * @throw NotSupportedException
      */
     protected function insertInternal($attributes = null)
     {
@@ -57,6 +63,7 @@ class ReadOnlyActiveRecord extends ActiveRecord
 
     /**
      * @inheritdoc
+     * @throw NotSupportedException
      */
     public function update($runValidation = true, $attributeNames = null)
     {
@@ -65,6 +72,7 @@ class ReadOnlyActiveRecord extends ActiveRecord
 
     /**
      * @inheritdoc
+     * @throw NotSupportedException
      */
     protected function updateInternal($attributes = null)
     {
@@ -73,6 +81,7 @@ class ReadOnlyActiveRecord extends ActiveRecord
 
     /**
      * @inheritdoc
+     * @throw NotSupportedException
      */
     public function beforeSave($insert)
     {
@@ -81,6 +90,7 @@ class ReadOnlyActiveRecord extends ActiveRecord
 
     /**
      * @inheritdoc
+     * @throw NotSupportedException
      */
     public function afterSave($insert, $changedAttributes)
     {
@@ -89,6 +99,7 @@ class ReadOnlyActiveRecord extends ActiveRecord
 
     /**
      * @inheritdoc
+     * @throw NotSupportedException
      */
     public function delete()
     {
@@ -97,6 +108,7 @@ class ReadOnlyActiveRecord extends ActiveRecord
 
     /**
      * @inheritdoc
+     * @throw NotSupportedException
      */
     protected function deleteInternal()
     {
@@ -105,6 +117,7 @@ class ReadOnlyActiveRecord extends ActiveRecord
 
     /**
      * @inheritdoc
+     * @throw NotSupportedException
      */
     public function beforeDelete()
     {
@@ -113,6 +126,7 @@ class ReadOnlyActiveRecord extends ActiveRecord
 
     /**
      * @inheritdoc
+     * @throw NotSupportedException
      */
     public function afterDelete()
     {

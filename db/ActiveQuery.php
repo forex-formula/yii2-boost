@@ -7,6 +7,9 @@ use yii\db\ActiveQuery as YiiActiveQuery;
 class ActiveQuery extends YiiActiveQuery
 {
 
+    /**
+     * @var string|null
+     */
     private $_alias = null;
 
     /**
@@ -19,6 +22,7 @@ class ActiveQuery extends YiiActiveQuery
     }
 
     /**
+     * @param string $alias
      * @return self
      */
     public function setAlias($alias)
@@ -28,6 +32,9 @@ class ActiveQuery extends YiiActiveQuery
         return $this->from([$alias => $modelClass::tableName()]);
     }
 
+    /**
+     * @return string
+     */
     public function getAlias()
     {
         if (!is_null($this->_alias)) {
