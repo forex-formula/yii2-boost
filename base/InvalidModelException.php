@@ -16,12 +16,21 @@ class InvalidModelException extends UnexpectedValueException
      */
     private $_model = null;
 
+    /**
+     * @param Model $model
+     * @param string|null $message
+     * @param int $code
+     * @param Exception|null $previous
+     */
     public function __construct(Model $model, $message = null, $code = 0, Exception $previous = null)
     {
         $this->_model = $model;
         parent::__construct($message, $code, $previous);
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'Invalid Model';
@@ -35,6 +44,9 @@ class InvalidModelException extends UnexpectedValueException
         return $this->_model;
     }
 
+    /**
+     * @return array
+     */
     public function getModelDebugData()
     {
         $model = $this->getModel();
@@ -54,6 +66,9 @@ class InvalidModelException extends UnexpectedValueException
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     public function __toString()
     {
         return parent::__toString() . PHP_EOL . VarDumper::dumpAsString($this->getModelDebugData());
