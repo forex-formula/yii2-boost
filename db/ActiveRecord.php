@@ -20,6 +20,9 @@ class ActiveRecord extends YiiActiveRecord
         return Yii::createObject(ActiveQuery::className(), [get_called_class()]);
     }
 
+    /**
+     * @return array
+     */
     public function debugData()
     {
         if ($this->hasErrors()) {
@@ -36,6 +39,10 @@ class ActiveRecord extends YiiActiveRecord
         }
     }
 
+    /**
+     * @param string $message
+     * @param string $category
+     */
     public function log($message = 'Dump:', $category = 'application')
     {
         if ($this->hasErrors()) {
@@ -45,6 +52,9 @@ class ActiveRecord extends YiiActiveRecord
         }
     }
 
+    /**
+     * @param string|null $label
+     */
     public function fb($label = null)
     {
         if ($this->hasErrors()) {
@@ -59,12 +69,18 @@ class ActiveRecord extends YiiActiveRecord
         VarDumper::dump($this->debugData());
     }
 
+    /**
+     * @return string
+     */
     public function dumpAsString()
     {
         return VarDumper::dumpAsString($this->debugData());
     }
 
     /**
+     * @param string|null $message
+     * @param int $code
+     * @param Exception|null $previous
      * @return InvalidModelException
      */
     public function exception($message = null, $code = 0, Exception $previous = null)
