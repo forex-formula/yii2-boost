@@ -27,7 +27,7 @@ class ActiveQuery extends YiiActiveQuery
      */
     public function setAlias($alias)
     {
-        /* @var $modelClass ActiveRecord */
+        /* @var $modelClass string|ActiveRecord */
         $modelClass = $this->modelClass;
         return $this->from([$alias => $modelClass::tableName()]);
     }
@@ -41,7 +41,7 @@ class ActiveQuery extends YiiActiveQuery
             return $this->_alias;
         }
         if (empty($this->from)) {
-            /* @var $modelClass ActiveRecord */
+            /* @var $modelClass string|ActiveRecord */
             $modelClass = $this->modelClass;
             $tableName = $modelClass::tableName();
         } else {
