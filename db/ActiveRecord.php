@@ -13,11 +13,24 @@ class ActiveRecord extends YiiActiveRecord
 {
 
     /**
+     * @inheritdoc
      * @return ActiveQuery
      */
     public static function find()
     {
         return Yii::createObject(ActiveQuery::className(), [get_called_class()]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function findAll($condition = null)
+    {
+        if (is_null($condition)) {
+            return static::find()->all();
+        } else {
+            return parent::findAll($condition);
+        }
     }
 
     /**
