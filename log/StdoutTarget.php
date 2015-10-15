@@ -35,12 +35,17 @@ class StdoutTarget extends Target
     /**
      * @var bool
      */
-    private $_stdoutSupportsColors = true;
+    private $_stdoutSupportsColors = false;
 
     /**
      * @var bool
      */
-    private $_stderrSupportsColors = true;
+    private $_stderrIsNotStdout = false;
+
+    /**
+     * @var bool
+     */
+    private $_stderrSupportsColors = false;
 
     /**
      * @inheritdoc
@@ -48,6 +53,7 @@ class StdoutTarget extends Target
     public function init()
     {
         $this->_stdoutSupportsColors = Console::streamSupportsAnsiColors(\STDOUT);
+        $this->_stderrIsNotStdout = fstat(\STDERR)['dev'] != fstat(\STDOUT)['dev'];
         $this->_stderrSupportsColors = Console::streamSupportsAnsiColors(\STDERR);
         parent::init();
     }
@@ -65,7 +71,7 @@ class StdoutTarget extends Target
             } else {
                 Console::stdout($string);
             }
-            if (($level == Logger::LEVEL_ERROR) || ($level == Logger::LEVEL_WARNING)) {
+            if ($this->_stderrIsNotStdout && (($level == Logger::LEVEL_ERROR) || ($level == Logger::LEVEL_WARNING))) {
                 if ($this->_stderrSupportsColors) {
                     Console::stderr(Console::ansiFormat($string, $this->colors[$level]));
                 } else {
