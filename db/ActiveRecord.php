@@ -26,7 +26,11 @@ class ActiveRecord extends YiiActiveRecord
      */
     public static function findAll($condition = null)
     {
-        return is_null($condition) ? static::find()->all() : parent::findAll($condition);
+        if (is_null($condition)) {
+            return static::find()->all();
+        } else {
+            return parent::findAll($condition);
+        }
     }
 
     /**
