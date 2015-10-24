@@ -65,7 +65,7 @@ class StdoutTarget extends Target
     {
         foreach ($this->messages as $message) {
             $string = $this->formatMessage($message) . "\n";
-            list ($text, $level, $category, $timestamp) = $message;
+            $level = $message[1];
             if ($this->_stdoutSupportsColors) {
                 Console::stdout(Console::ansiFormat($string, $this->colors[$level]));
             } else {
