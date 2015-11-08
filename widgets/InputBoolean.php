@@ -24,7 +24,7 @@ class InputBoolean extends InputWidget
         if (is_null($this->booleanFormat)) {
             $this->booleanFormat = Yii::$app->getFormatter()->booleanFormat;
             if (is_null($this->booleanFormat)) {
-                $this->booleanFormat = ['No', 'Yes'];
+                $this->booleanFormat = [Yii::t('yii', 'No'), Yii::t('yii', 'Yes')];
             }
         }
         Html::addCssClass($this->options, 'form-control');
