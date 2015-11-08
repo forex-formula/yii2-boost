@@ -10,18 +10,18 @@ class InputBoolean extends InputWidget
 {
 
     /**
-     * @var array|null
+     * @var array
      * @see http://www.yiiframework.com/doc-2.0/yii-i18n-formatter.html#$booleanFormat-detail
      * @uses \yii\i18n\Formatter::$booleanFormat
      */
-    public $booleanFormat = null;
+    public $booleanFormat;
 
     /**
-     * @var string|false|null
+     * @var string|false
      * @see http://www.yiiframework.com/doc-2.0/yii-i18n-formatter.html#$nullDisplay-detail
      * @uses \yii\i18n\Formatter::$nullDisplay
      */
-    public $prompt = null;
+    public $prompt;
 
     /**
      * @inheritdoc
