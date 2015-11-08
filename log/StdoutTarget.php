@@ -65,13 +65,13 @@ class StdoutTarget extends Target
     {
         foreach ($this->messages as $message) {
             $string = $this->formatMessage($message) . "\n";
-            list ($text, $level, $category, $timestamp) = $message;
+            $level = $message[1];
             if ($this->_stdoutSupportsColors) {
                 Console::stdout(Console::ansiFormat($string, $this->colors[$level]));
             } else {
                 Console::stdout($string);
             }
-            if ($this->_stderrIsNotStdout && (($level == Logger::LEVEL_ERROR) || ($level == Logger::LEVEL_WARNING))) {
+            if ($this->_stderrIsNotStdout && in_array($level, [Logger::LEVEL_ERROR, Logger::LEVEL_WARNING])) {
                 if ($this->_stderrSupportsColors) {
                     Console::stderr(Console::ansiFormat($string, $this->colors[$level]));
                 } else {
