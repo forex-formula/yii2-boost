@@ -62,7 +62,7 @@ class InputBoolean extends InputWidget
         if (is_string($this->prompt) && !array_key_exists('prompt', $options)) {
             $options['prompt'] = strip_tags($this->prompt);
         }
-        if ($this->hasModel()) {
+        if ($hasModel) {
             $output = Html::activeDropDownList($this->model, $this->attribute, $this->booleanFormat, $options);
         } else {
             $output = Html::dropDownList($this->name, $this->value, $this->booleanFormat, $options);
