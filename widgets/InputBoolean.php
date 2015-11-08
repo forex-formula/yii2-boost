@@ -50,7 +50,15 @@ class InputBoolean extends InputWidget
      */
     public function run()
     {
-        $options = $this->options;
+        $hasModel = $this->hasModel();
+        if (array_key_exists('value', $this->options)) {
+            $value = $this->options['value'];
+        } elseif ($hasModel) {
+            $value = Html::getAttributeValue($this->model, $this->attribute);
+        } else {
+            $value = $this->value;
+        }
+        $options = array_merge($this->options, ['value' => $value]);
         if (is_string($this->prompt) && !array_key_exists('prompt', $options)) {
             $options['prompt'] = strip_tags($this->prompt);
         }
