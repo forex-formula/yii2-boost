@@ -50,19 +50,11 @@ class InputBoolean extends InputWidget
      */
     public function run()
     {
-        $hasModel = $this->hasModel();
-        if (array_key_exists('value', $this->options)) {
-            $value = $this->options['value'];
-        } elseif ($hasModel) {
-            $value = Html::getAttributeValue($this->model, $this->attribute);
-        } else {
-            $value = $this->value;
-        }
-        $options = array_merge($this->options, ['value' => $value]);
+        $options = $this->options;
         if (is_string($this->prompt) && !array_key_exists('prompt', $options)) {
             $options['prompt'] = strip_tags($this->prompt);
         }
-        if ($hasModel) {
+        if ($this->hasModel()) {
             $output = Html::activeDropDownList($this->model, $this->attribute, $this->booleanFormat, $options);
         } else {
             $output = Html::dropDownList($this->name, $this->value, $this->booleanFormat, $options);
