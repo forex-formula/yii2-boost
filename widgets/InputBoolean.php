@@ -10,18 +10,18 @@ class InputBoolean extends InputWidget
 {
 
     /**
-     * @var array|null
+     * @var array
      * @see http://www.yiiframework.com/doc-2.0/yii-i18n-formatter.html#$booleanFormat-detail
      * @uses \yii\i18n\Formatter::$booleanFormat
      */
-    public $booleanFormat = null;
+    public $booleanFormat;
 
     /**
-     * @var string|false|null
+     * @var string|false
      * @see http://www.yiiframework.com/doc-2.0/yii-i18n-formatter.html#$nullDisplay-detail
      * @uses \yii\i18n\Formatter::$nullDisplay
      */
-    public $prompt = null;
+    public $prompt;
 
     /**
      * @inheritdoc
@@ -50,7 +50,15 @@ class InputBoolean extends InputWidget
      */
     public function run()
     {
-        $options = $this->options;
+        $hasModel = $this->hasModel();
+        if (array_key_exists('value', $this->options)) {
+            $value = $this->options['value'];
+        } elseif ($hasModel) {
+            $value = Html::getAttributeValue($this->model, $this->attribute);
+        } else {
+            $value = $this->value;
+        }
+        $options = array_merge($this->options, ['value' => $value]);
         if (is_string($this->prompt) && !array_key_exists('prompt', $options)) {
             $options['prompt'] = strip_tags($this->prompt);
         }
