@@ -66,10 +66,18 @@ class InvalidModelException extends UnexpectedValueException
     }
 
     /**
+     * @return string
+     */
+    protected function parentToString()
+    {
+        return parent::__toString();
+    }
+
+    /**
      * @inheritdoc
      */
     public function __toString()
     {
-        return parent::__toString() . PHP_EOL . VarDumper::dumpAsString($this->getModelDebugData());
+        return $this->parentToString() . PHP_EOL . VarDumper::dumpAsString($this->getModelDebugData());
     }
 }
