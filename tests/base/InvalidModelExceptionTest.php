@@ -40,13 +40,13 @@ class InvalidModelExceptionTest extends TestCase
 
     public function testModelDebugData1()
     {
-        $model = $this->getMock(TestForm::className());
-        $this->assertInstanceOf('yii\boost\tests\TestForm', $model);
+        $model = $this->getMock(TestForm::className(), ['hasErrors', 'getAttributes', 'getErrors']);
         $model->expects($this->once())->method('hasErrors')->willReturn(false);
         $model->expects($this->once())->method('getAttributes')->willReturn(['key1' => 'value1']);
         $model->expects($this->never())->method('getErrors');
-        /* @var $model TestForm */
-        $exception = new InvalidModelException($model);
+        $exception = $this->getMock('yii\boost\base\InvalidModelException', ['getModel'], [], '', false);
+        $exception->expects($this->once())->method('getModel')->willReturn($model);
+        /* @var $exception InvalidModelException */
         $this->assertEquals([
             'class' => get_class($model),
             'attributes' => ['key1' => 'value1']
@@ -55,13 +55,13 @@ class InvalidModelExceptionTest extends TestCase
 
     public function testModelDebugData2()
     {
-        $model = $this->getMock(TestForm::className());
-        $this->assertInstanceOf('yii\boost\tests\TestForm', $model);
+        $model = $this->getMock(TestForm::className(), ['hasErrors', 'getAttributes', 'getErrors']);
         $model->expects($this->once())->method('hasErrors')->willReturn(true);
         $model->expects($this->once())->method('getAttributes')->willReturn(['key1' => 'value1']);
         $model->expects($this->once())->method('getErrors')->willReturn(['key2' => 'value2']);
-        /* @var $model TestForm */
-        $exception = new InvalidModelException($model);
+        $exception = $this->getMock('yii\boost\base\InvalidModelException', ['getModel'], [], '', false);
+        $exception->expects($this->once())->method('getModel')->willReturn($model);
+        /* @var $exception InvalidModelException */
         $this->assertEquals([
             'class' => get_class($model),
             'attributes' => ['key1' => 'value1'],
