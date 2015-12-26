@@ -78,6 +78,7 @@ trait ModelDebugTrait
      */
     public function exception($message = null, $code = 0, Exception $previous = null)
     {
+        /* @var $this \yii\base\Model */
         return new InvalidModelException($this, $message, $code, $previous);
     }
 }
