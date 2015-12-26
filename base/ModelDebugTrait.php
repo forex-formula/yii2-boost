@@ -46,7 +46,7 @@ trait ModelDebugTrait
     }
 
     /**
-     * @param string|null $label
+     * @param string $label
      */
     public function fb($label = null)
     {
@@ -71,9 +71,9 @@ trait ModelDebugTrait
     }
 
     /**
-     * @param string|null $message
+     * @param string $message
      * @param int $code
-     * @param Exception|null $previous
+     * @param Exception $previous
      * @return InvalidModelException
      */
     public function exception($message = null, $code = 0, Exception $previous = null)
