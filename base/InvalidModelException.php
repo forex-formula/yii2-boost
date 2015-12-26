@@ -6,7 +6,6 @@ use Exception;
 use yii\base\Model;
 use UnexpectedValueException;
 use yii\helpers\VarDumper;
-use yii\boost\db\ActiveRecord as YiiBoostActiveRecord;
 
 class InvalidModelException extends UnexpectedValueException
 {
@@ -18,9 +17,9 @@ class InvalidModelException extends UnexpectedValueException
 
     /**
      * @param Model $model
-     * @param string|null $message
+     * @param string $message
      * @param int $code
-     * @param Exception|null $previous
+     * @param Exception $previous
      */
     public function __construct(Model $model, $message = null, $code = 0, Exception $previous = null)
     {
@@ -50,7 +49,7 @@ class InvalidModelException extends UnexpectedValueException
     public function getModelDebugData()
     {
         $model = $this->getModel();
-        if ($model instanceof YiiBoostActiveRecord) {
+        if ($model instanceof ModelDebugTrait) {
             return $model->debugData();
         } elseif ($model->hasErrors()) {
             return [
