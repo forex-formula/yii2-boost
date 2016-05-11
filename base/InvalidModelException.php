@@ -13,7 +13,7 @@ class InvalidModelException extends UnexpectedValueException
     /**
      * @var Model
      */
-    private $_model = null;
+    private $_model;
 
     /**
      * @param Model $model
