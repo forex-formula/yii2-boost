@@ -9,9 +9,9 @@ trait AliasTrait
 {
 
     /**
-     * @var string|null
+     * @var string
      */
-    private $_alias = null;
+    private $_alias;
 
     /**
      * @inheritdoc
@@ -36,7 +36,7 @@ trait AliasTrait
      */
     public function getAlias()
     {
-        if (is_string($this->_alias)) {
+        if (!is_null($this->_alias)) {
             return $this->_alias;
         }
         if (empty($this->from)) {
@@ -72,7 +72,7 @@ trait AliasTrait
     }
 
     /**
-     * @param string|null $column
+     * @param string $column
      * @return string
      */
     public function a($column = null)
