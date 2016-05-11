@@ -36,6 +36,9 @@ trait AliasTrait
      */
     public function getAlias()
     {
+        if (is_string($this->_alias)) {
+            return $this->_alias;
+        }
         if (empty($this->from)) {
             /* @var $modelClass ActiveRecord */
             $modelClass = $this->modelClass;
@@ -44,6 +47,7 @@ trait AliasTrait
             $tableName = '';
             foreach ($this->from as $alias => $tableName) {
                 if (is_string($alias)) {
+                    $this->_alias = $alias;
                     return $alias;
                 } else {
                     break;
@@ -55,6 +59,7 @@ trait AliasTrait
         } else {
             $alias = $tableName;
         }
+        $this->_alias = $alias;
         return $alias;
     }
 
