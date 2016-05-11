@@ -36,7 +36,7 @@ trait ModelDebugTrait
      * @param string $message
      * @param string $category
      */
-    public function log($message = 'Dump:', $category = 'application')
+    public function debugLog($message = 'Dump:', $category = 'application')
     {
         if ($this->hasErrors()) {
             Yii::error($message . PHP_EOL . VarDumper::dumpAsString($this->debugData()), $category);
@@ -48,7 +48,7 @@ trait ModelDebugTrait
     /**
      * @param string $label
      */
-    public function fb($label = null)
+    public function debugFirebug($label = null)
     {
         if ($this->hasErrors()) {
             FB::error($this->debugData(), $label);
@@ -57,7 +57,7 @@ trait ModelDebugTrait
         }
     }
 
-    public function dump()
+    public function debugDump()
     {
         VarDumper::dump($this->debugData());
     }
@@ -65,7 +65,7 @@ trait ModelDebugTrait
     /**
      * @return string
      */
-    public function dumpAsString()
+    public function debugDumpAsString()
     {
         return VarDumper::dumpAsString($this->debugData());
     }
