@@ -3,7 +3,7 @@
 namespace yii\boost\base;
 
 use Exception;
-use FB;
+use FirePHP;
 use yii\helpers\VarDumper;
 use Yii;
 
@@ -50,11 +50,8 @@ trait ModelDebugTrait
      */
     public function debugFirebug($label = null)
     {
-        if ($this->hasErrors()) {
-            FB::error($this->debugData(), $label);
-        } else {
-            FB::info($this->debugData(), $label);
-        }
+        $instance = FirePHP::getInstance(true);
+        $instance::fb($this->debugData(), $label, $this->hasErrors() ? FirePHP::ERROR : FirePHP::INFO);
     }
 
     public function debugDump()
