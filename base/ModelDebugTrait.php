@@ -4,6 +4,7 @@ namespace yii\boost\base;
 
 use Exception;
 use FirePHP;
+use yii\log\Logger;
 use yii\helpers\VarDumper;
 use Yii;
 
@@ -38,11 +39,7 @@ trait ModelDebugTrait
      */
     public function debugLog($message = 'Dump:', $category = 'application')
     {
-        if ($this->hasErrors()) {
-            Yii::error($message . PHP_EOL . VarDumper::dumpAsString($this->debugData()), $category);
-        } else {
-            Yii::info($message . PHP_EOL . VarDumper::dumpAsString($this->debugData()), $category);
-        }
+        Yii::getLogger()->log($message . PHP_EOL . VarDumper::dumpAsString($this->debugData()), $this->hasErrors() ? Logger::LEVEL_ERROR : Logger::LEVEL_INFO, $category);
     }
 
     /**
