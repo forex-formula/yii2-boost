@@ -9,6 +9,29 @@ trait AliasTrait
 {
 
     /**
+     * @var string|null
+     */
+    private $_alias = null;
+
+    /**
+     * @inheritdoc
+     */
+    public function from($tables)
+    {
+        $this->_alias = null;
+        return parent::from($tables);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function alias($alias)
+    {
+        $this->_alias = null;
+        return parent::alias($alias);
+    }
+
+    /**
      * @return string
      */
     public function getAlias()
