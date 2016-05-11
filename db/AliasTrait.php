@@ -70,4 +70,18 @@ trait AliasTrait
     {
         return $this->getAlias();
     }
+
+    /**
+     * @param string|null $column
+     * @return string
+     */
+    public function a($column = null)
+    {
+        $alias = $this->getAlias();
+        if (is_null($column)) {
+            return $alias;
+        } else {
+            return $alias . '.' . $column;
+        }
+    }
 }
