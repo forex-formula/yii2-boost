@@ -14,7 +14,7 @@ class InputBoolean extends InputWidget
      * @see http://www.yiiframework.com/doc-2.0/yii-i18n-formatter.html#$booleanFormat-detail
      * @uses \yii\i18n\Formatter::$booleanFormat
      */
-    public $booleanFormat;
+    public $items;
 
     /**
      * @var string|false
@@ -37,16 +37,16 @@ class InputBoolean extends InputWidget
     {
         parent::init();
         $formatter = Yii::$app->getFormatter();
-        if (is_null($this->booleanFormat)) {
-            $this->booleanFormat = $formatter->booleanFormat;
-            if (is_null($this->booleanFormat)) {
-                $this->booleanFormat = [Yii::t('yii', 'No', [], $this->locale), Yii::t('yii', 'Yes', [], $this->locale)];
+        if (is_null($this->items)) {
+            $this->items = $formatter->booleanFormat;
+            if (is_null($this->items)) {
+                $this->items = [Yii::t('yii', 'No', [], $this->language), Yii::t('yii', 'Yes', [], $this->language)];
             }
         }
         if (is_null($this->prompt)) {
             $this->prompt = $formatter->nullDisplay;
             if (is_null($this->prompt)) {
-                $this->prompt = Yii::t('yii', '(not set)', [], $this->locale);
+                $this->prompt = Yii::t('yii', '(not set)', [], $this->language);
             }
         }
         if (is_null($this->language)) {
@@ -56,6 +56,9 @@ class InputBoolean extends InputWidget
             }
         }
         Html::addCssClass($this->options, 'form-control');
+        if (is_string($this->prompt) && !array_key_exists('prompt', $this->options)) {
+            $this->options['prompt'] = strip_tags($this->prompt);
+        }
     }
 
     /**
@@ -63,23 +66,15 @@ class InputBoolean extends InputWidget
      */
     public function run()
     {
-        $hasModel = $this->hasModel();
-        if (array_key_exists('value', $this->options)) {
-            $value = $this->options['value'];
-        } elseif ($hasModel) {
-            $value = Html::getAttributeValue($this->model, $this->attribute);
+        if ($this->hasModel()) {
+if (array_key_exists('value', $this->options)) {
+$value = $this->options['value'];
+} else {
+$value = Html::getAttributeValue($this->model, $this->attribute);
+}
+return Html::activeDropDownList($this->model, $this->attribute, $this->items, $this->options);
         } else {
-            $value = $this->value;
+            return Html::dropDownList($this->name, $this->value, $this->items, $this->options);
         }
-        $options = array_merge($this->options, ['value' => $value]);
-        if (is_string($this->prompt) && !array_key_exists('prompt', $options)) {
-            $options['prompt'] = strip_tags($this->prompt);
-        }
-        if ($hasModel) {
-            $output = Html::activeDropDownList($this->model, $this->attribute, $this->booleanFormat, $options);
-        } else {
-            $output = Html::dropDownList($this->name, $this->value, $this->booleanFormat, $options);
-        }
-        return $output;
     }
 }
