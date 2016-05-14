@@ -1,6 +1,6 @@
 <?php
 
-namespace common\components;
+namespace yii\boost\log;
 
 use Psr\Log\AbstractLogger;
 use yii\log\Logger;
