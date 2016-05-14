@@ -4,6 +4,7 @@ namespace yii\boost\widgets;
 
 use yii\helpers\Html;
 use yii\widgets\InputWidget;
+use yii\base\NotSupportedException;
 use Yii;
 
 class InputBoolean extends InputWidget
@@ -67,12 +68,19 @@ class InputBoolean extends InputWidget
     public function run()
     {
         if ($this->hasModel()) {
-if (array_key_exists('value', $this->options)) {
-$value = $this->options['value'];
-} else {
-$value = Html::getAttributeValue($this->model, $this->attribute);
-}
-return Html::activeDropDownList($this->model, $this->attribute, $this->items, $this->options);
+            if (array_key_exists('value', $this->options)) {
+                if (!in_array($this->attribute, $this->model->attributes())) {
+                    throw new NotSupportedException('Unable to set value of the property \'' . $this->attribute . '\'.');
+                }
+                $stash = $this->model->{$this->attribute};
+                $this->model->{$this->attribute} = $this->options['value'];
+                unset($this->options['value']);
+            }
+            $output = Html::activeDropDownList($this->model, $this->attribute, $this->items, $this->options);
+            if (isset($stash)) {
+                $this->model->{$this->attribute} = $stash;
+            }
+            return $output;
         } else {
             return Html::dropDownList($this->name, $this->value, $this->items, $this->options);
         }
