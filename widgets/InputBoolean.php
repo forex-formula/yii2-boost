@@ -57,6 +57,10 @@ class InputBoolean extends InputWidget
             }
         }
         Html::addCssClass($this->options, 'form-control');
+        if (array_key_exists('value', $this->options)) {
+            $this->value = $this->options['value'];
+            unset($this->options['value']);
+        }
         if (is_string($this->prompt) && !array_key_exists('prompt', $this->options)) {
             $this->options['prompt'] = strip_tags($this->prompt);
         }
@@ -69,13 +73,12 @@ class InputBoolean extends InputWidget
     public function run()
     {
         if ($this->hasModel()) {
-            if (array_key_exists('value', $this->options)) {
+            if (!is_null($this->value)) {
                 if (!in_array($this->attribute, $this->model->attributes())) {
                     throw new NotSupportedException('Unable to set value of the property \'' . $this->attribute . '\'.');
                 }
                 $stash = $this->model->{$this->attribute};
-                $this->model->{$this->attribute} = $this->options['value'];
-                unset($this->options['value']);
+                $this->model->{$this->attribute} = $this->value;
             }
             $output = Html::activeDropDownList($this->model, $this->attribute, $this->items, $this->options);
             if (isset($stash)) {
