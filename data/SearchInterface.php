@@ -1,6 +1,6 @@
 <?php
 
-namespace yii\boost\db;
+namespace yii\boost\data;
 
 interface SearchInterface
 {
