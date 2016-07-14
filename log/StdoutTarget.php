@@ -12,7 +12,7 @@ class StdoutTarget extends Target
     /**
      * @var array
      */
-    public $colors = [
+    public $colorMap = [
         Logger::LEVEL_ERROR => [Console::BOLD, Console::FG_RED],
         Logger::LEVEL_WARNING => [Console::BOLD, Console::FG_YELLOW],
         Logger::LEVEL_INFO => [],
@@ -52,10 +52,10 @@ class StdoutTarget extends Target
      */
     public function init()
     {
+        parent::init();
         $this->_stdoutSupportsColors = Console::streamSupportsAnsiColors(\STDOUT);
         $this->_stderrIsNotStdout = fstat(\STDERR)['dev'] != fstat(\STDOUT)['dev'];
         $this->_stderrSupportsColors = Console::streamSupportsAnsiColors(\STDERR);
-        parent::init();
     }
 
     /**
@@ -67,13 +67,13 @@ class StdoutTarget extends Target
             $string = $this->formatMessage($message) . "\n";
             $level = $message[1];
             if ($this->_stdoutSupportsColors) {
-                Console::stdout(Console::ansiFormat($string, $this->colors[$level]));
+                Console::stdout(Console::ansiFormat($string, $this->colorMap[$level]));
             } else {
                 Console::stdout($string);
             }
             if ($this->_stderrIsNotStdout && in_array($level, [Logger::LEVEL_ERROR, Logger::LEVEL_WARNING])) {
                 if ($this->_stderrSupportsColors) {
-                    Console::stderr(Console::ansiFormat($string, $this->colors[$level]));
+                    Console::stderr(Console::ansiFormat($string, $this->colorMap[$level]));
                 } else {
                     Console::stderr($string);
                 }
