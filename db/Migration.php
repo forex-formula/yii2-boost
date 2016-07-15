@@ -53,6 +53,28 @@ class Migration extends YiiMigration
         if (is_null($name)) {
             $name = implode('-', array_merge((array)$table, (array)$columns));
         }
-        parent::addForeignKey($name, $table, $columns, $refTable, $refColumns, $delete = null, $update = null);
+        parent::addForeignKey($name, $table, $columns, $refTable, $refColumns, $delete, $update);
+    }
+
+    /**
+     * @inheritdoc
+     * @param string|null $name
+     */
+    public function createIndex($name, $table, $columns, $unique = false)
+    {
+        if (is_null($name)) {
+            $name = implode('-', (array)$columns);
+        }
+        parent::createIndex($name, $table, $columns, $unique);
+    }
+
+    /**
+     * @param string|null $name
+     * @param string $table
+     * @param string|array $columns
+     */
+    public function createUnique($name, $table, $columns)
+    {
+        $this->createIndex($name, $table, $columns, true);
     }
 }
