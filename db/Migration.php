@@ -7,6 +7,11 @@ use yii\db\Migration as YiiMigration;
 class Migration extends YiiMigration
 {
 
+    const RESTRICT = 'RESTRICT';
+    const CASCADE = 'CASCADE';
+    const SET_NULL = 'SET NULL';
+    const NO_ACTION = 'NO ACTION';
+
     /**
      * @inheritdoc
      */
@@ -37,5 +42,17 @@ class Migration extends YiiMigration
             $options .= $commentOption;
         }
         parent::createTable($table, $columns, $options);
+    }
+
+    /**
+     * @inheritdoc
+     * @param string|null $name
+     */
+    public function addForeignKey($name, $table, $columns, $refTable, $refColumns, $delete = null, $update = null)
+    {
+        if (is_null($name)) {
+            $name = implode('-', array_merge((array)$table, (array)$columns));
+        }
+        parent::addForeignKey($name, $table, $columns, $refTable, $refColumns, $delete = null, $update = null);
     }
 }
