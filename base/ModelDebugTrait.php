@@ -39,7 +39,8 @@ trait ModelDebugTrait
      */
     public function debugLog($message = 'Dump:', $category = 'application')
     {
-        Yii::getLogger()->log($message . PHP_EOL . $this->debugDumpAsString(), $this->hasErrors() ? Logger::LEVEL_ERROR : Logger::LEVEL_INFO, $category);
+        $level = $this->hasErrors() ? Logger::LEVEL_ERROR : Logger::LEVEL_INFO;
+        Yii::getLogger()->log($message . PHP_EOL . $this->debugDumpAsString(), $level, $category);
     }
 
     /**

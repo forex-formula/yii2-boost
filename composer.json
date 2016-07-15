@@ -1,7 +1,10 @@
 {
   "name": "ivan-chkv/yii2-boost",
   "description": "Yii 2 Boost Extension",
-  "keywords": ["yii2", "boost"],
+  "keywords": [
+    "yii2",
+    "boost"
+  ],
   "type": "yii2-extension",
   "license": "MIT",
   "authors": [
@@ -16,8 +19,7 @@
     "psr/log": "*"
   },
   "require-dev": {
-    "yiisoft/yii2-codeception": "*",
-    "codeception/codeception": "*"
+    "ivan-chkv/yii2-phpunit": "2.*"
   },
   "autoload": {
     "psr-4": {
