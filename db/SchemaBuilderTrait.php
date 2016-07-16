@@ -9,11 +9,12 @@ trait SchemaBuilderTrait
 {
 
     /**
+     * @param int $default
      * @return \yii\db\ColumnSchemaBuilder
      */
-    public function enabledShortcut()
+    public function enabledShortcut($default = 0)
     {
-        return $this->boolean()->notNull()->defaultValue(0);
+        return $this->boolean()->notNull()->defaultValue($default);
     }
 
     /**
@@ -33,10 +34,11 @@ trait SchemaBuilderTrait
     }
 
     /**
+     * @param int $default
      * @return \yii\db\ColumnSchemaBuilder
      */
-    public function deletedShortcut()
+    public function deletedShortcut($default = 0)
     {
-        return $this->boolean()->notNull()->defaultValue(0);
+        return $this->boolean()->notNull()->defaultValue($default);
     }
 }
