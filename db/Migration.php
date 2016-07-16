@@ -34,10 +34,10 @@ class Migration extends YiiMigration
     }
 
     /**
-     * @param array $columns
-     * @return array
+     * @param ColumnSchemaBuilder|string $type
+     * @return ColumnSchemaBuilder|string
      */
-    public function fixColumns(array $columns)
+    public function fixColumnType($type)
     {
         $closure = function () {
             /* @var $this ColumnSchemaBuilder */
@@ -57,12 +57,10 @@ class Migration extends YiiMigration
                 $this->isUnsigned = true;
             }
         };
-        foreach ($columns as $column) {
-            if ($column instanceof ColumnSchemaBuilder) {
-                call_user_func($closure->bindTo($column, get_class($column)));
-            }
+        if ($type instanceof ColumnSchemaBuilder) {
+            call_user_func($closure->bindTo($type, get_class($type)));
         }
-        return $columns;
+        return $type;
     }
 
     /**
@@ -74,7 +72,10 @@ class Migration extends YiiMigration
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $options = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
-        parent::createTable($table, $this->fixColumns($columns), $options);
+        foreach ($columns as $name => $type) {
+            $columns[$name] = $this->fixColumnType($type);
+        }
+        parent::createTable($table, $columns, $options);
     }
 
     /**
@@ -129,5 +130,13 @@ class Migration extends YiiMigration
     public function createUnique($name, $table, $columns)
     {
         $this->createIndex($name, $table, $columns, true);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function addColumn($table, $column, $type)
+    {
+        parent::addColumn($table, $column, $this->fixColumnType($type));
     }
 }
