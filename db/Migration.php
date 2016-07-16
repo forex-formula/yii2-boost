@@ -139,4 +139,18 @@ class Migration extends YiiMigration
     {
         parent::addColumn($table, $column, $this->fixColumnType($type));
     }
+
+    /**
+     * @param int $length
+     * @return ColumnSchemaBuilder
+     */
+    public function tinyInteger($length = null)
+    {
+        $db = $this->getDb();
+        if ($db->getDriverName() == 'mysql') {
+            return $db->getSchema()->createColumnSchemaBuilder('tinyint', $length);
+        } else {
+            return $db->getSchema()->createColumnSchemaBuilder(Schema::TYPE_SMALLINT, $length);
+        }
+    }
 }
