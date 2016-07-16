@@ -41,6 +41,12 @@ class Migration extends YiiMigration
     {
         $closure = function () {
             /* @var $this ColumnSchemaBuilder */
+            $this->categoryMap = array_merge($this->categoryMap, [
+                'tinyint' => ColumnSchemaBuilder::CATEGORY_NUMERIC,
+                'utinyint' => ColumnSchemaBuilder::CATEGORY_NUMERIC,
+                'usmallint' => ColumnSchemaBuilder::CATEGORY_NUMERIC,
+                'uinteger' => ColumnSchemaBuilder::CATEGORY_NUMERIC
+            ]);
             if ($this->isUnsigned) {
                 switch ($this->type) {
                     case 'tinyint':
@@ -68,7 +74,7 @@ class Migration extends YiiMigration
      */
     public function createTable($table, $columns, $options = null)
     {
-        if (($this->getDb()->getDriverName() == 'mysql') && is_null($options)) {
+        if (is_null($options) && ($this->getDb()->getDriverName() == 'mysql')) {
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $options = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
@@ -95,7 +101,7 @@ class Migration extends YiiMigration
             }
             $options .= $commentOption;
         }
-        parent::createTable($table, $columns, $options);
+        $this->createTable($table, $columns, $options);
     }
 
     /**
