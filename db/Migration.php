@@ -9,6 +9,8 @@ use yii\db\Migration as YiiMigration;
 class Migration extends YiiMigration
 {
 
+    use SchemaBuilderTrait;
+
     const RESTRICT = 'RESTRICT';
     const CASCADE = 'CASCADE';
     const SET_NULL = 'SET NULL';
@@ -59,8 +61,8 @@ class Migration extends YiiMigration
                         $this->type = 'uinteger';
                         break;
                 }
-            } elseif ($this->type == Schema::TYPE_BOOLEAN) {
-                $this->isUnsigned = true;
+            } elseif (in_array($this->type, [Schema::TYPE_PK, Schema::TYPE_BIGPK, Schema::TYPE_BOOLEAN])) {
+                $this->unsigned();
             }
         };
         if ($type instanceof ColumnSchemaBuilder) {
@@ -112,6 +114,12 @@ class Migration extends YiiMigration
     {
         if (is_null($name)) {
             $name = implode('-', array_merge((array)$table, (array)$columns));
+        }
+        if (is_null($delete)) {
+            $delete = static::RESTRICT;
+        }
+        if (is_null($update)) {
+            $update = static::NO_ACTION;
         }
         parent::addForeignKey($name, $table, $columns, $refTable, $refColumns, $delete, $update);
     }
