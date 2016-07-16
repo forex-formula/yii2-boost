@@ -41,6 +41,12 @@ class Migration extends YiiMigration
     {
         $closure = function () {
             /* @var $this ColumnSchemaBuilder */
+            $this->categoryMap = array_merge($this->categoryMap, [
+                'tinyint' => ColumnSchemaBuilder::CATEGORY_NUMERIC,
+                'utinyint' => ColumnSchemaBuilder::CATEGORY_NUMERIC,
+                'usmallint' => ColumnSchemaBuilder::CATEGORY_NUMERIC,
+                'uinteger' => ColumnSchemaBuilder::CATEGORY_NUMERIC
+            ]);
             if ($this->isUnsigned) {
                 switch ($this->type) {
                     case 'tinyint':
