@@ -115,6 +115,12 @@ class Migration extends YiiMigration
         if (is_null($name)) {
             $name = implode('-', array_merge((array)$table, (array)$columns));
         }
+        if (is_null($delete)) {
+            $delete = static::RESTRICT;
+        }
+        if (is_null($update)) {
+            $update = static::NO_ACTION;
+        }
         parent::addForeignKey($name, $table, $columns, $refTable, $refColumns, $delete, $update);
     }
 
