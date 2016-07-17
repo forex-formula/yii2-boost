@@ -110,6 +110,18 @@ class Migration extends YiiMigration
      * @inheritdoc
      * @param string|null $name
      */
+    public function addPrimaryKey($name, $table, $columns)
+    {
+        if (is_null($name)) {
+            $name = 'PRIMARY';
+        }
+        parent::addPrimaryKey($name, $table, $columns);
+    }
+
+    /**
+     * @inheritdoc
+     * @param string|null $name
+     */
     public function addForeignKey($name, $table, $columns, $refTable, $refColumns, $delete = null, $update = null)
     {
         if (is_null($name)) {
