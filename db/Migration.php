@@ -113,7 +113,7 @@ class Migration extends YiiMigration
     public function addPrimaryKey($name, $table, $columns)
     {
         if (is_null($name)) {
-            $name = 'PRIMARY';
+            $name = implode('-', (array)$columns);
         }
         parent::addPrimaryKey($name, $table, $columns);
     }
