@@ -34,6 +34,14 @@ class ActiveRecord extends YiiActiveRecord
     }
 
     /**
+     * @return string[]
+     */
+    public function displayField()
+    {
+        return $this->primaryKey();
+    }
+
+    /**
      * @inheritdoc
      */
     public function activeAttributes()
