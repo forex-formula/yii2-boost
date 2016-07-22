@@ -3,7 +3,6 @@
 namespace yii\boost\db;
 
 use yii\boost\base\ModelDebugTrait;
-use yii\db\Expression;
 use Yii;
 use yii\db\ActiveRecord as YiiActiveRecord;
 
