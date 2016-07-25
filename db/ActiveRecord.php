@@ -3,7 +3,6 @@
 namespace yii\boost\db;
 
 use yii\boost\base\ModelDebugTrait;
-use yii\db\Expression;
 use Yii;
 use yii\db\ActiveRecord as YiiActiveRecord;
 
@@ -34,12 +33,10 @@ class ActiveRecord extends YiiActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * @return string[]
      */
-    public function activeAttributes()
+    public static function displayField()
     {
-        return array_filter(parent::activeAttributes(), function ($attribute) {
-            return !($this->{$attribute} instanceof Expression);
-        });
+        return static::primaryKey();
     }
 }
