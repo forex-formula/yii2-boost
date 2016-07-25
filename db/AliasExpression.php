@@ -2,86 +2,41 @@
 
 namespace yii\boost\db;
 
-/**
- * @mixin \yii\db\ActiveQuery
- */
-trait AliasTrait
+use yii\db\Expression;
+
+class AliasExpression extends Expression
 {
 
     /**
-     * @var string
+     * @var ActiveQuery
      */
-    private $_alias;
+    private $_query;
 
     /**
-     * @inheritdoc
+     * @param ActiveQuery $query
+     * @param string $expression
+     * @param array $params
+     * @param array $config
      */
-    public function from($tables)
+    public function __construct(ActiveQuery $query, $expression, $params = [], $config = [])
     {
-        $this->_alias = null;
-        return parent::from($tables);
+        $this->_query = $query;
+        parent::__construct($expression, $params, $config);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getQuery()
+    {
+        return $this->_query;
     }
 
     /**
      * @inheritdoc
      */
-    public function alias($alias)
+    public function __toString()
     {
-        $this->_alias = null;
-        return parent::alias($alias);
-    }
-
-    /**
-     * @return string
-     */
-    public function getAlias()
-    {
-        if (!is_null($this->_alias)) {
-            return $this->_alias;
-        }
-        if (empty($this->from)) {
-            /* @var $modelClass ActiveRecord */
-            $modelClass = $this->modelClass;
-            $tableName = $modelClass::tableName();
-        } else {
-            $tableName = '';
-            foreach ($this->from as $alias => $tableName) {
-                if (is_string($alias)) {
-                    $this->_alias = $alias;
-                    return $alias;
-                } else {
-                    break;
-                }
-            }
-        }
-        if (preg_match('/^(.*?)\s+({{\w+}}|\w+)$/', $tableName, $matches)) {
-            $alias = $matches[2];
-        } else {
-            $alias = $tableName;
-        }
-        $this->_alias = $alias;
-        return $alias;
-    }
-
-    /**
-     * @return string
-     */
-    public function getA()
-    {
-        return $this->getAlias();
-    }
-
-    /**
-     * @param string $column
-     * @return string
-     */
-    public function a($column = null)
-    {
-        $alias = $this->getAlias();
-        if (is_null($column)) {
-            return $alias;
-        } else {
-            return $alias . '.' . $column;
-        }
+        return str_replace('{a}', $this->getQuery()->getAlias(), parent::__toString());
     }
 }
