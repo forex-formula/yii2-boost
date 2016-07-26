@@ -8,6 +8,11 @@ class ActiveQuery extends YiiActiveQuery
 {
 
     /**
+     * @event Event
+     */
+    const EVENT_ALIAS = 'alias';
+
+    /**
      * @var string
      */
     private $_alias;
@@ -18,7 +23,9 @@ class ActiveQuery extends YiiActiveQuery
     public function from($tables)
     {
         $this->_alias = null;
-        return parent::from($tables);
+        $result = parent::from($tables);
+        $this->trigger(static::EVENT_ALIAS);
+        return $result;
     }
 
     /**
@@ -27,7 +34,9 @@ class ActiveQuery extends YiiActiveQuery
     public function alias($alias)
     {
         $this->_alias = null;
-        return parent::alias($alias);
+        $result = parent::alias($alias);
+        $this->trigger(static::EVENT_ALIAS);
+        return $result;
     }
 
     /**
