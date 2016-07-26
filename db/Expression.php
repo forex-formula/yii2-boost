@@ -25,6 +25,7 @@ class Expression extends YiiDbExpression
                 $query = $event->sender;
                 $this->expression = str_replace('{a}', $query->getAlias(), $expression);
             });
+            $this->expression = str_replace('{a}', $this->query->getAlias(), $expression);
         }
     }
 }
