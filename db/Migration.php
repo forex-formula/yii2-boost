@@ -23,7 +23,7 @@ class Migration extends YiiMigration
     {
         parent::init();
         $db = $this->getDb();
-        if ($db->getDriverName() == 'mysql') {
+        if (in_array($db->getDriverName(), ['mysql', 'mysqli'])) {
             $queryBuilder = $db->getQueryBuilder();
             $queryBuilder->typeMap = array_merge($queryBuilder->typeMap, [
                 Schema::TYPE_UPK => str_replace('(11)', '(10)', $queryBuilder->typeMap[Schema::TYPE_UPK]),
@@ -76,7 +76,7 @@ class Migration extends YiiMigration
      */
     public function createTable($table, $columns, $options = null)
     {
-        if (is_null($options) && ($this->getDb()->getDriverName() == 'mysql')) {
+        if (is_null($options) && in_array($db->getDriverName(), ['mysql', 'mysqli'])) {
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $options = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
@@ -95,7 +95,7 @@ class Migration extends YiiMigration
     public function createTableWithComment($table, $columns, $comment, $options = null)
     {
         $db = $this->getDb();
-        if ($db->getDriverName() == 'mysql') {
+        if (in_array($db->getDriverName(), ['mysql', 'mysqli'])) {
             $commentOption = ' COMMENT=' . $db->quoteValue($comment);
             if (is_null($options)) {
                 // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
@@ -173,7 +173,7 @@ class Migration extends YiiMigration
     public function tinyInteger($length = null)
     {
         $db = $this->getDb();
-        if ($db->getDriverName() == 'mysql') {
+        if (in_array($db->getDriverName(), ['mysql', 'mysqli'])) {
             return $db->getSchema()->createColumnSchemaBuilder('tinyint', $length);
         } else {
             return $db->getSchema()->createColumnSchemaBuilder(Schema::TYPE_SMALLINT, $length);
