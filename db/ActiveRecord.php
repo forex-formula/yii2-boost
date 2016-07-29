@@ -34,7 +34,7 @@ class ActiveRecord extends YiiActiveRecord
     }
 
     /**
-     * @return string[]
+     * @return string[]|Expression
      */
     public static function displayField()
     {
