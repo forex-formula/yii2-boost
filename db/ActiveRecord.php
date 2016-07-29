@@ -2,6 +2,7 @@
 
 namespace yii\boost\db;
 
+use yii\db\Expression;
 use yii\boost\base\ModelDebugTrait;
 use Yii;
 use yii\db\ActiveRecord as YiiActiveRecord;
@@ -38,5 +39,22 @@ class ActiveRecord extends YiiActiveRecord
     public static function displayField()
     {
         return static::primaryKey();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function createValidators()
+    {
+        $validators = parent::createValidators();
+        /* @var $validator \yii\validators\Validator */
+        foreach ($validators as $validator) {
+            if (is_null($validator->when)) {
+                $validator->when = function ($model, $attribute) {
+                    return !$model->$attribute instanceof Expression;
+                };
+            }
+        }
+        return $validators;
     }
 }
