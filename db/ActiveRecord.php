@@ -42,6 +42,22 @@ class ActiveRecord extends YiiActiveRecord
     }
 
     /**
+     * @return string[]
+     */
+    public static function hasManyRelationNames()
+    {
+        return [];
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function hasOneRelationNames()
+    {
+        return [];
+    }
+
+    /**
      * @inheritdoc
      */
     public function createValidators()
