@@ -3,6 +3,7 @@
 namespace yii\boost\db;
 
 use yii\db\Expression;
+use yii\helpers\Inflector;
 use yii\boost\base\ModelDebugTrait;
 use Yii;
 use yii\db\ActiveRecord as YiiActiveRecord;
@@ -14,7 +15,7 @@ class ActiveRecord extends YiiActiveRecord
 
     /**
      * @inheritdoc
-     * @return ActiveQuery
+     * @return ActiveQuery|object
      */
     public static function find()
     {
@@ -34,11 +35,35 @@ class ActiveRecord extends YiiActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public static function modelLabel()
+    {
+        return Inflector::titleize(static::formName());
+    }
+
+    /**
      * @return string[]|Expression
      */
     public static function displayField()
     {
         return static::primaryKey();
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function hasManyRelationNames()
+    {
+        return [];
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function hasOneRelationNames()
+    {
+        return [];
     }
 
     /**

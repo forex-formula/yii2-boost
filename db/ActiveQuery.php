@@ -2,6 +2,8 @@
 
 namespace yii\boost\db;
 
+use yii\db\Expression;
+use yii\base\NotSupportedException;
 use yii\db\ActiveQuery as YiiActiveQuery;
 
 class ActiveQuery extends YiiActiveQuery
@@ -91,5 +93,26 @@ class ActiveQuery extends YiiActiveQuery
         } else {
             return $alias . '.' . $column;
         }
+    }
+
+    /**
+     * @return self
+     */
+    public function listItems()
+    {
+        /* @var $modelClass ActiveRecord */
+        $modelClass = $this->modelClass;
+        $primaryKey = $modelClass::primaryKey();
+        if (count($primaryKey) != 1) {
+            throw new NotSupportedException('Unable to request list items.');
+        }
+        $this->indexBy($primaryKey[0]);
+        $displayField = $modelClass::displayField();
+        if (is_array($displayField) && (count($displayField) > 1)) {
+            $this->select(new Expression('CONCAT([[' . implode(']], \' \', [[', $displayField) . ']])'));
+        } else {
+            $this->select($displayField);
+        }
+        return $this;
     }
 }
