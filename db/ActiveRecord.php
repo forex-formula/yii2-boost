@@ -35,6 +35,18 @@ class ActiveRecord extends YiiActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public static function findListItems($condition = null, $params = [])
+    {
+        if (is_null($condition)) {
+            return static::find()->listItems()->column();
+        } else {
+            return static::find()->andWhere($condition, $params)->listItems()->column();
+        }
+    }
+
+    /**
      * @return string
      */
     public static function modelLabel()
