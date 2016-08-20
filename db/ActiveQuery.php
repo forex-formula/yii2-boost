@@ -96,7 +96,7 @@ class ActiveQuery extends YiiActiveQuery
     }
 
     /**
-     * @return self
+     * @return $this
      */
     public function listItems()
     {
