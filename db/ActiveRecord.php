@@ -15,11 +15,11 @@ class ActiveRecord extends YiiActiveRecord
 
     /**
      * @inheritdoc
-     * @return ActiveQuery|object
+     * @return ActiveQuery
      */
     public static function find()
     {
-        return Yii::createObject(ActiveQuery::className(), [get_called_class()]);
+        return new ActiveQuery(get_called_class());
     }
 
     /**
@@ -31,6 +31,20 @@ class ActiveRecord extends YiiActiveRecord
             return static::find()->all();
         } else {
             return parent::findAll($condition);
+        }
+    }
+
+    /**
+     * @param string|array|Expression $condition
+     * @param array $params
+     * @return array
+     */
+    public static function findListItems($condition = null, $params = [])
+    {
+        if (is_null($condition)) {
+            return static::find()->listItems()->column();
+        } else {
+            return static::find()->andWhere($condition, $params)->listItems()->column();
         }
     }
 
@@ -53,7 +67,7 @@ class ActiveRecord extends YiiActiveRecord
     /**
      * @return string[]
      */
-    public static function hasManyRelationNames()
+    public static function havingManyRelationNames()
     {
         return [];
     }
@@ -61,9 +75,22 @@ class ActiveRecord extends YiiActiveRecord
     /**
      * @return string[]
      */
-    public static function hasOneRelationNames()
+    public static function havingOneRelationNames()
     {
         return [];
+    }
+
+    /**
+     * @return string
+     */
+    public function getDisplayField()
+    {
+        $displayField = static::displayField();
+        if (is_array($displayField)) {
+            return implode(' ', $this->getAttributes($displayField));
+        } else {
+            return implode(' ', $this->getPrimaryKey(true));
+        }
     }
 
     /**

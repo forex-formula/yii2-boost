@@ -96,7 +96,7 @@ class ActiveQuery extends YiiActiveQuery
     }
 
     /**
-     * @return self
+     * @return $this
      */
     public function listItems()
     {
@@ -106,10 +106,15 @@ class ActiveQuery extends YiiActiveQuery
         if (count($primaryKey) != 1) {
             throw new NotSupportedException('Unable to request list items.');
         }
-        $this->indexBy($primaryKey[0]);
+        $this->orderBy($primaryKey)->indexBy($primaryKey[0]);
         $displayField = $modelClass::displayField();
-        if (is_array($displayField) && (count($displayField) > 1)) {
-            $this->select(new Expression('CONCAT([[' . implode(']], \' \', [[', $displayField) . ']])'));
+        if (is_array($displayField)) {
+            $this->orderBy($displayField);
+            if (count($displayField) > 1) {
+                $this->select(new Expression('CONCAT([[' . implode(']], \' \', [[', $displayField) . ']])'));
+            } else {
+                $this->select($displayField);
+            }
         } else {
             $this->select($displayField);
         }
