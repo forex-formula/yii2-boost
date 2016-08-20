@@ -35,6 +35,8 @@ class ActiveRecord extends YiiActiveRecord
     }
 
     /**
+     * @param string|array|Expression $condition
+     * @param array $params
      * @return array
      */
     public static function findListItems($condition = null, $params = [])
@@ -76,6 +78,14 @@ class ActiveRecord extends YiiActiveRecord
     public static function hasOneRelationNames()
     {
         return [];
+    }
+
+    /**
+     * @return string
+     */
+    public function getDisplayField()
+    {
+        return implode(' ', $this->getAttributes(static::displayField()));
     }
 
     /**
