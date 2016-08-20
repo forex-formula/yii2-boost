@@ -65,6 +65,19 @@ class ActiveRecord extends YiiActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function getDisplayField()
+    {
+        $displayField = static::displayField();
+        if (is_array($displayField)) {
+            return implode(' ', $this->getAttributes($displayField));
+        } else {
+            return implode(' ', $this->getPrimaryKey(true));
+        }
+    }
+
+    /**
      * @return string[]
      */
     public static function havingManyRelationNames()
@@ -78,19 +91,6 @@ class ActiveRecord extends YiiActiveRecord
     public static function havingOneRelationNames()
     {
         return [];
-    }
-
-    /**
-     * @return string
-     */
-    public function getDisplayField()
-    {
-        $displayField = static::displayField();
-        if (is_array($displayField)) {
-            return implode(' ', $this->getAttributes($displayField));
-        } else {
-            return implode(' ', $this->getPrimaryKey(true));
-        }
     }
 
     /**
