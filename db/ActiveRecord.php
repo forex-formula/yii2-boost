@@ -67,7 +67,7 @@ class ActiveRecord extends YiiActiveRecord
     /**
      * @return string[]
      */
-    public static function hasManyRelationNames()
+    public static function havingManyRelationNames()
     {
         return [];
     }
@@ -75,7 +75,7 @@ class ActiveRecord extends YiiActiveRecord
     /**
      * @return string[]
      */
-    public static function hasOneRelationNames()
+    public static function havingOneRelationNames()
     {
         return [];
     }
