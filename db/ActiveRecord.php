@@ -85,7 +85,12 @@ class ActiveRecord extends YiiActiveRecord
      */
     public function getDisplayField()
     {
-        return implode(' ', $this->getAttributes(static::displayField()));
+        $displayField = static::displayField();
+        if (is_array($displayField)) {
+            return implode(' ', $this->getAttributes($displayField));
+        } else {
+            return implode(' ', $this->getPrimaryKey(true));
+        }
     }
 
     /**
