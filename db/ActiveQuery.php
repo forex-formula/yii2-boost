@@ -104,7 +104,7 @@ class ActiveQuery extends YiiActiveQuery
         $modelClass = $this->modelClass;
         $primaryKey = $modelClass::primaryKey();
         if (count($primaryKey) != 1) {
-            throw new NotSupportedException('Unable to request list items.');
+            throw new NotSupportedException('Primary key must be a single column.');
         }
         $this->orderBy($primaryKey)->indexBy($primaryKey[0]);
         $displayField = $modelClass::displayField();
