@@ -54,6 +54,22 @@ class ActiveRecord extends YiiActiveRecord
     }
 
     /**
+     * @return string[]
+     */
+    public static function havingManyRelationNames()
+    {
+        return [];
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function havingOneRelationNames()
+    {
+        return [];
+    }
+
+    /**
      * @return string
      */
     public static function shortName()
@@ -89,22 +105,6 @@ class ActiveRecord extends YiiActiveRecord
         } else {
             return implode(' ', $this->getPrimaryKey(true));
         }
-    }
-
-    /**
-     * @return string[]
-     */
-    public static function havingManyRelationNames()
-    {
-        return [];
-    }
-
-    /**
-     * @return string[]
-     */
-    public static function havingOneRelationNames()
-    {
-        return [];
     }
 
     /**
