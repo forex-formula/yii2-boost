@@ -54,6 +54,20 @@ class ActiveRecord extends YiiActiveRecord
     }
 
     /**
+     * @param array $condition
+     * @param string|array|Expression $orderBy
+     * @return array
+     */
+    public static function findFilterListItems(array $condition = [], $orderBy = null)
+    {
+        $query = static::find()->listItems()->andFilterWhere($condition);
+        if (!is_null($orderBy)) {
+            $query->orderBy($orderBy);
+        }
+        return $query->column();
+    }
+
+    /**
      * @return string[]
      */
     public static function havingManyRelationNames()
