@@ -5,6 +5,7 @@ namespace yii\boost\db;
 use yii\db\Expression;
 use yii\helpers\Inflector;
 use yii\boost\base\ModelDebugTrait;
+use ReflectionClass;
 use Yii;
 use yii\db\ActiveRecord as YiiActiveRecord;
 
@@ -50,6 +51,15 @@ class ActiveRecord extends YiiActiveRecord
             $query->orderBy($orderBy);
         }
         return $query->column();
+    }
+
+    /**
+     * @return string
+     */
+    public static function shortName()
+    {
+        $reflector = new ReflectionClass(get_called_class());
+        return $reflector->getShortName();
     }
 
     /**
