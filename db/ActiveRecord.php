@@ -67,7 +67,7 @@ class ActiveRecord extends YiiActiveRecord
      */
     public static function modelLabel()
     {
-        return Inflector::titleize(static::formName());
+        return Inflector::titleize(static::shortName());
     }
 
     /**
