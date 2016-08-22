@@ -37,15 +37,19 @@ class ActiveRecord extends YiiActiveRecord
     /**
      * @param string|array|Expression $condition
      * @param array $params
+     * @param string|array|Expression $orderBy
      * @return array
      */
-    public static function findListItems($condition = null, $params = [])
+    public static function findListItems($condition = null, $params = [], $orderBy = null)
     {
-        if (is_null($condition)) {
-            return static::find()->listItems()->column();
-        } else {
-            return static::find()->andWhere($condition, $params)->listItems()->column();
+        $query = static::find()->listItems();
+        if (!is_null($condition)) {
+            $query->andWhere($condition, $params);
         }
+        if (!is_null($orderBy)) {
+            $query->orderBy($orderBy);
+        }
+        return $query->column();
     }
 
     /**
