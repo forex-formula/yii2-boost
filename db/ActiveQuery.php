@@ -82,7 +82,7 @@ class ActiveQuery extends BaseActiveQuery
     }
 
     /**
-     * @param string $column
+     * @param string|array $column
      * @return string
      */
     public function a($column = null)
@@ -90,6 +90,10 @@ class ActiveQuery extends BaseActiveQuery
         $alias = $this->getAlias();
         if (is_null($column)) {
             return $alias;
+        } elseif (is_array($column)) {
+            return array_combine(array_map(function ($key) use ($alias) {
+                return $alias . '.' . $key;
+            }, array_keys($column)), $column);
         } else {
             return $alias . '.' . $column;
         }

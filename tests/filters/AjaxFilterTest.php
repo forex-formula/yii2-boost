@@ -2,28 +2,23 @@
 
 namespace yii\boost\tests\filters;
 
-use yii\codeception\TestCase;
+use yii\phpunit\TestCase;
 use Yii;
 
 class AjaxFilterTest extends TestCase
 {
-
-    /**
-     * @inheritdoc
-     */
-    public $appConfig = '@yii/boost/tests/config.php';
 
     public function testAjaxRequest()
     {
         /* @var $request \yii\boost\tests\Request */
         $request = Yii::$app->getRequest();
         $request->setIsAjax(true);
-        $this->assertEquals('yii\boost\tests\TestController::actionAjax', Yii::$app->runAction('test/ajax'));
+        $this->assertEquals('ok', Yii::$app->runAction('test/get-ok'));
     }
 
     public function testNonAjaxRequest()
     {
-        $this->setExpectedException('yii\web\BadRequestHttpException');
-        $this->assertEquals('yii\boost\tests\TestController::actionAjax', Yii::$app->runAction('test/ajax'));
+        $this->expectException('yii\web\BadRequestHttpException');
+        $this->assertEquals('ok', Yii::$app->runAction('test/get-ok'));
     }
 }

@@ -13,13 +13,13 @@ class TestController extends Controller
         return [
             'verbs' => [
                 'class' => AjaxFilter::className(),
-                'only' => ['ajax']
+                'only' => ['get-ok']
             ]
         ];
     }
 
-    public function actionAjax()
+    public function actionGetOk()
     {
-        return __METHOD__;
+        return 'ok';
     }
 }
