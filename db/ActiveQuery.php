@@ -6,13 +6,17 @@ use yii\db\ActiveQuery as BaseActiveQuery;
 use yii\db\Expression;
 use yii\base\NotSupportedException;
 
+/**
+ * @property string $alias
+ * @property string $a
+ */
 class ActiveQuery extends BaseActiveQuery
 {
 
     /**
      * @event Event
      */
-    const EVENTalias = 'alias';
+    const EVENT_ALIAS = 'alias';
 
     /**
      * @var string
@@ -26,7 +30,7 @@ class ActiveQuery extends BaseActiveQuery
     {
         $this->alias = null;
         $result = parent::from($tables);
-        $this->trigger(static::EVENTalias);
+        $this->trigger(static::EVENT_ALIAS);
         return $result;
     }
 
@@ -37,7 +41,7 @@ class ActiveQuery extends BaseActiveQuery
     {
         $this->alias = null;
         $result = parent::alias($alias);
-        $this->trigger(static::EVENTalias);
+        $this->trigger(static::EVENT_ALIAS);
         return $result;
     }
 
@@ -82,7 +86,7 @@ class ActiveQuery extends BaseActiveQuery
     }
 
     /**
-     * @param string $column
+     * @param string|array $column
      * @return string
      */
     public function a($column = null)
@@ -90,6 +94,10 @@ class ActiveQuery extends BaseActiveQuery
         $alias = $this->getAlias();
         if (is_null($column)) {
             return $alias;
+        } elseif (is_array($column)) {
+            return array_combine(array_map(function ($key) use ($alias) {
+                return $alias . '.' . $key;
+            }, array_keys($column)), $column);
         } else {
             return $alias . '.' . $column;
         }

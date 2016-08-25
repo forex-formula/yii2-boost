@@ -3,11 +3,11 @@
 namespace yii\boost\base;
 
 use Exception;
+use yii\base\InvalidValueException;
 use yii\base\Model;
-use UnexpectedValueException;
 use yii\helpers\VarDumper;
 
-class InvalidModelException extends UnexpectedValueException
+class InvalidModelException extends InvalidValueException
 {
 
     /**
