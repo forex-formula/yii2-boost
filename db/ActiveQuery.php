@@ -12,7 +12,7 @@ class ActiveQuery extends BaseActiveQuery
     /**
      * @event Event
      */
-    const EVENTalias = 'alias';
+    const EVENT_ALIAS = 'alias';
 
     /**
      * @var string
@@ -26,7 +26,7 @@ class ActiveQuery extends BaseActiveQuery
     {
         $this->alias = null;
         $result = parent::from($tables);
-        $this->trigger(static::EVENTalias);
+        $this->trigger(static::EVENT_ALIAS);
         return $result;
     }
 
@@ -37,7 +37,7 @@ class ActiveQuery extends BaseActiveQuery
     {
         $this->alias = null;
         $result = parent::alias($alias);
-        $this->trigger(static::EVENTalias);
+        $this->trigger(static::EVENT_ALIAS);
         return $result;
     }
 
