@@ -6,6 +6,10 @@ use yii\db\ActiveQuery as BaseActiveQuery;
 use yii\db\Expression;
 use yii\base\NotSupportedException;
 
+/**
+ * @property string $alias
+ * @property string $a
+ */
 class ActiveQuery extends BaseActiveQuery
 {
 
