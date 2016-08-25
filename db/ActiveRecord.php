@@ -2,14 +2,14 @@
 
 namespace yii\boost\db;
 
+use yii\db\ActiveRecord as BaseActiveRecord;
 use yii\db\Expression;
 use yii\helpers\Inflector;
 use yii\boost\base\ModelDebugTrait;
 use ReflectionClass;
 use Yii;
-use yii\db\ActiveRecord as YiiActiveRecord;
 
-class ActiveRecord extends YiiActiveRecord
+class ActiveRecord extends BaseActiveRecord
 {
 
     use ModelDebugTrait;

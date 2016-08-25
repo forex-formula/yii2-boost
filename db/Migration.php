@@ -2,11 +2,11 @@
 
 namespace yii\boost\db;
 
+use yii\db\Migration as BaseMigration;
 use yii\db\mysql\ColumnSchemaBuilder;
 use yii\db\Schema;
-use yii\db\Migration as YiiMigration;
 
-class Migration extends YiiMigration
+class Migration extends BaseMigration
 {
 
     use SchemaBuilderTrait;

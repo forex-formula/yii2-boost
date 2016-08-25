@@ -2,11 +2,11 @@
 
 namespace yii\boost\db;
 
+use yii\db\ActiveQuery as BaseActiveQuery;
 use yii\db\Expression;
 use yii\base\NotSupportedException;
-use yii\db\ActiveQuery as YiiActiveQuery;
 
-class ActiveQuery extends YiiActiveQuery
+class ActiveQuery extends BaseActiveQuery
 {
 
     /**
