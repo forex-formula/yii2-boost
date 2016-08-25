@@ -2,31 +2,31 @@
 
 namespace yii\boost\db;
 
+use yii\db\ActiveQuery as BaseActiveQuery;
 use yii\db\Expression;
 use yii\base\NotSupportedException;
-use yii\db\ActiveQuery as YiiActiveQuery;
 
-class ActiveQuery extends YiiActiveQuery
+class ActiveQuery extends BaseActiveQuery
 {
 
     /**
      * @event Event
      */
-    const EVENT_ALIAS = 'alias';
+    const EVENTalias = 'alias';
 
     /**
      * @var string
      */
-    private $_alias;
+    private $alias;
 
     /**
      * @inheritdoc
      */
     public function from($tables)
     {
-        $this->_alias = null;
+        $this->alias = null;
         $result = parent::from($tables);
-        $this->trigger(static::EVENT_ALIAS);
+        $this->trigger(static::EVENTalias);
         return $result;
     }
 
@@ -35,9 +35,9 @@ class ActiveQuery extends YiiActiveQuery
      */
     public function alias($alias)
     {
-        $this->_alias = null;
+        $this->alias = null;
         $result = parent::alias($alias);
-        $this->trigger(static::EVENT_ALIAS);
+        $this->trigger(static::EVENTalias);
         return $result;
     }
 
@@ -46,8 +46,8 @@ class ActiveQuery extends YiiActiveQuery
      */
     public function getAlias()
     {
-        if (!is_null($this->_alias)) {
-            return $this->_alias;
+        if (!is_null($this->alias)) {
+            return $this->alias;
         }
         if (empty($this->from)) {
             /* @var $modelClass ActiveRecord */
@@ -57,7 +57,7 @@ class ActiveQuery extends YiiActiveQuery
             $tableName = '';
             foreach ($this->from as $alias => $tableName) {
                 if (is_string($alias)) {
-                    $this->_alias = $alias;
+                    $this->alias = $alias;
                     return $alias;
                 } else {
                     break;
@@ -69,7 +69,7 @@ class ActiveQuery extends YiiActiveQuery
         } else {
             $alias = $tableName;
         }
-        $this->_alias = $alias;
+        $this->alias = $alias;
         return $alias;
     }
 

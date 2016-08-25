@@ -13,7 +13,7 @@ class InvalidModelException extends UnexpectedValueException
     /**
      * @var Model
      */
-    private $_model;
+    private $model;
 
     /**
      * @param Model $model
@@ -23,7 +23,7 @@ class InvalidModelException extends UnexpectedValueException
      */
     public function __construct(Model $model, $message = null, $code = 0, Exception $previous = null)
     {
-        $this->_model = $model;
+        $this->model = $model;
         parent::__construct($message, $code, $previous);
     }
 
@@ -40,7 +40,7 @@ class InvalidModelException extends UnexpectedValueException
      */
     public function getModel()
     {
-        return $this->_model;
+        return $this->model;
     }
 
     /**

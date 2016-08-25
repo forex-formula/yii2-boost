@@ -2,10 +2,10 @@
 
 namespace yii\boost\db;
 
+use yii\db\Expression as BaseExpression;
 use yii\base\Event;
-use yii\db\Expression as YiiDbExpression;
 
-class Expression extends YiiDbExpression
+class Expression extends BaseExpression
 {
 
     /**

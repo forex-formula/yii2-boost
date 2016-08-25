@@ -2,9 +2,9 @@
 
 namespace yii\boost\validators;
 
-use yii\validators\UniqueValidator as YiiUniqueValidator;
+use yii\validators\UniqueValidator as BaseUniqueValidator;
 
-class UniqueValidator extends YiiUniqueValidator
+class UniqueValidator extends BaseUniqueValidator
 {
 
     /**
