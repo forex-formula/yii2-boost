@@ -95,19 +95,15 @@ class ActiveQuery extends BaseActiveQuery
         if (is_null($column)) {
             return $alias;
         } elseif (is_array($column)) {
-            if (count($column)) {
-                if (array_key_exists(0, $column)) {
-                    return array_map(function ($value) use ($alias) {
-                        return $alias . '.' . $value;
-                    }, array_values($column));
+            $columns = [];
+            foreach ($column as $key => $value) {
+                if (is_int($key)) {
+                    $columns[$key] = $alias . '.' . $value;
                 } else {
-                    return array_combine(array_map(function ($key) use ($alias) {
-                        return $alias . '.' . $key;
-                    }, array_keys($column)), $column);
+                    $columns[$alias . '.' . $key] = $value;
                 }
-            } else {
-                return $column;
             }
+            return $columns;
         } else {
             return $alias . '.' . $column;
         }
