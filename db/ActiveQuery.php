@@ -95,9 +95,19 @@ class ActiveQuery extends BaseActiveQuery
         if (is_null($column)) {
             return $alias;
         } elseif (is_array($column)) {
-            return array_combine(array_map(function ($key) use ($alias) {
-                return $alias . '.' . $key;
-            }, array_keys($column)), $column);
+            if (count($column)) {
+                if (array_key_exists(0, $column)) {
+                    return array_map(function ($value) use ($alias) {
+                        return $alias . '.' . $value;
+                    }, array_values($column));
+                } else {
+                    return array_combine(array_map(function ($key) use ($alias) {
+                        return $alias . '.' . $key;
+                    }, array_keys($column)), $column);
+                }
+            } else {
+                return $column;
+            }
         } else {
             return $alias . '.' . $column;
         }
