@@ -117,9 +117,9 @@ class ActiveRecord extends BaseActiveRecord
     {
         $displayField = static::displayField();
         if (is_array($displayField)) {
-            return implode(' ', $this->getAttributes($displayField));
+            return implode(static::DISPLAY_FIELD_SEPARATOR, $this->getAttributes($displayField));
         } else {
-            return implode(' ', $this->getPrimaryKey(true));
+            return implode(static::DISPLAY_FIELD_SEPARATOR, $this->getPrimaryKey(true));
         }
     }
 
@@ -132,7 +132,7 @@ class ActiveRecord extends BaseActiveRecord
         /* @var $validator \yii\validators\Validator */
         foreach ($validators as $validator) {
             if (is_null($validator->when)) {
-                $validator->when = function ($model, $attribute) {
+                $validator->when = function (ActiveRecord $model, $attribute) {
                     return !$model->$attribute instanceof Expression;
                 };
             }

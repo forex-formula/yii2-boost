@@ -87,7 +87,7 @@ class ActiveQuery extends BaseActiveQuery
 
     /**
      * @param string|array $column
-     * @return string
+     * @return string|array
      */
     public function a($column = null)
     {
@@ -95,9 +95,15 @@ class ActiveQuery extends BaseActiveQuery
         if (is_null($column)) {
             return $alias;
         } elseif (is_array($column)) {
-            return array_combine(array_map(function ($key) use ($alias) {
-                return $alias . '.' . $key;
-            }, array_keys($column)), $column);
+            $columns = [];
+            foreach ($column as $key => $value) {
+                if (is_int($key)) {
+                    $columns[$key] = $alias . '.' . $value;
+                } else {
+                    $columns[$alias . '.' . $key] = $value;
+                }
+            }
+            return $columns;
         } else {
             return $alias . '.' . $column;
         }
@@ -119,7 +125,8 @@ class ActiveQuery extends BaseActiveQuery
         if (is_array($displayField)) {
             $this->orderBy($displayField);
             if (count($displayField) > 1) {
-                $this->select(new Expression('CONCAT([[' . implode(']], \' \', [[', $displayField) . ']])'));
+                $separator = $modelClass::getDb()->quoteValue($modelClass::DISPLAY_FIELD_SEPARATOR);
+                $this->select(new Expression('CONCAT([[' . implode(']], ' . $separator . ', [[', $displayField) . ']])'));
             } else {
                 $this->select($displayField);
             }

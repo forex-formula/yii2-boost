@@ -40,6 +40,15 @@ class ActiveQueryTest extends TestCase
         /* @var $mock ActiveQuery */
         $this->assertEquals('foo', $mock->a());
         $this->assertEquals('foo.column', $mock->a('column'));
+        $this->assertEquals([], $mock->a([]));
+        $this->assertEquals(['foo.column'], $mock->a(['column']));
+        $this->assertEquals([
+            'foo.column1',
+            'foo.column2'
+        ], $mock->a([
+            'column1',
+            'column2'
+        ]));
         $this->assertEquals([
             'foo.column1' => 1,
             'foo.column2' => 2
