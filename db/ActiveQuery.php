@@ -87,7 +87,7 @@ class ActiveQuery extends BaseActiveQuery
 
     /**
      * @param string|array $column
-     * @return string
+     * @return string|array
      */
     public function a($column = null)
     {
