@@ -14,6 +14,8 @@ class ActiveRecord extends BaseActiveRecord
 
     use ModelDebugTrait;
 
+    const DISPLAY_FIELD_SEPARATOR = ' ';
+
     /**
      * @inheritdoc
      * @return ActiveQuery
@@ -68,7 +70,7 @@ class ActiveRecord extends BaseActiveRecord
     }
 
     /**
-     * @return string[]
+     * @return array
      */
     public static function singularRelations()
     {
@@ -76,7 +78,7 @@ class ActiveRecord extends BaseActiveRecord
     }
 
     /**
-     * @return string[]
+     * @return array
      */
     public static function pluralRelations()
     {
@@ -95,7 +97,7 @@ class ActiveRecord extends BaseActiveRecord
     /**
      * @return string
      */
-    public static function modelLabel()
+    public static function title()
     {
         return Inflector::titleize(static::shortName());
     }
