@@ -8,6 +8,11 @@ class ActiveFixture extends BaseActiveFixture
 {
 
     /**
+     * @var array
+     */
+    public $backDepends = [];
+
+    /**
      * @inheritdoc
      */
     public function unload()
