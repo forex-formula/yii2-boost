@@ -132,7 +132,7 @@ class ActiveRecord extends BaseActiveRecord
         /* @var $validator \yii\validators\Validator */
         foreach ($validators as $validator) {
             if (is_null($validator->when)) {
-                $validator->when = function ($model, $attribute) {
+                $validator->when = function (ActiveRecord $model, $attribute) {
                     return !$model->$attribute instanceof Expression;
                 };
             }
