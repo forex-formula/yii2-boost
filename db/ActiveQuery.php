@@ -126,7 +126,7 @@ class ActiveQuery extends BaseActiveQuery
             $this->orderBy($displayField);
             if (count($displayField) > 1) {
                 $separator = $modelClass::getDb()->quoteValue($modelClass::DISPLAY_FIELD_SEPARATOR);
-                $this->select(new Expression('CONCAT([[' . implode(']], ' . $separator . ', [[', $displayField) . ']])'));
+                $this->select(new Expression('CONCAT(' . implode(', ' . $separator . ', ', $this->a($displayField)) . ')'));
             } else {
                 $this->select($displayField);
             }
