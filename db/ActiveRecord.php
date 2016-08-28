@@ -70,7 +70,7 @@ class ActiveRecord extends BaseActiveRecord
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public static function singularRelations()
     {
@@ -78,7 +78,7 @@ class ActiveRecord extends BaseActiveRecord
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public static function pluralRelations()
     {
@@ -121,6 +121,16 @@ class ActiveRecord extends BaseActiveRecord
         } else {
             return implode(static::DISPLAY_FIELD_SEPARATOR, $this->getPrimaryKey(true));
         }
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    public function getRelationClass($name)
+    {
+        $relation = $this->getRelation($name, false);
+        return $relation ? $relation->modelClass : null;
     }
 
     /**
