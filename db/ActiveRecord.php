@@ -134,6 +134,29 @@ class ActiveRecord extends BaseActiveRecord
     }
 
     /**
+     * @param string $name
+     * @return array
+     */
+    public function getRelationLink($name)
+    {
+        $relation = $this->getRelation($name, false);
+        return $relation ? $relation->link : null;
+    }
+
+    /**
+     * @param string $name
+     * @return array
+     */
+    public function getRelationConfig($name)
+    {
+        $relation = $this->getRelation($name, false);
+        return $relation ? [
+            'class' => $relation->modelClass,
+            'link' => $relation->link
+        ] : null;
+    }
+
+    /**
      * @inheritdoc
      */
     public function createValidators()
