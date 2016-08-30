@@ -86,6 +86,30 @@ class ActiveRecord extends BaseActiveRecord
     }
 
     /**
+     * @return string[]
+     */
+    public static function booleanAttributes()
+    {
+        return [];
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function dateAttributes()
+    {
+        return [];
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function datetimeAttributes()
+    {
+        return [];
+    }
+
+    /**
      * @return string
      */
     public static function classShortName()
