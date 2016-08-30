@@ -120,10 +120,10 @@ class ActiveQuery extends BaseActiveQuery
         if (count($primaryKey) != 1) {
             throw new NotSupportedException('Primary key must be a single column.');
         }
-        $this->orderBy($primaryKey)->indexBy($primaryKey[0]);
+        $this->orderBy($primaryKey[0])->indexBy($primaryKey[0]);
         $displayField = $modelClass::displayField();
         if (is_array($displayField)) {
-            $this->orderBy($displayField);
+            $this->orderBy(array_fill_keys($displayField, SORT_ASC));
             if (count($displayField) > 1) {
                 $separator = $modelClass::getDb()->quoteValue($modelClass::DISPLAY_FIELD_SEPARATOR);
                 $this->select(new Expression('CONCAT(' . implode(', ' . $separator . ', ', $this->a($displayField)) . ')'));
