@@ -88,7 +88,7 @@ class ActiveRecord extends BaseActiveRecord
     /**
      * @return string
      */
-    public static function shortName()
+    public static function classShortName()
     {
         $reflector = new ReflectionClass(get_called_class());
         return $reflector->getShortName();
@@ -97,9 +97,9 @@ class ActiveRecord extends BaseActiveRecord
     /**
      * @return string
      */
-    public static function title()
+    public static function modelTitle()
     {
-        return Inflector::titleize(static::shortName());
+        return Inflector::titleize(static::classShortName());
     }
 
     /**
