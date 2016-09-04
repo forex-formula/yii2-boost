@@ -13,18 +13,18 @@ class Request extends WebRequest
     private $isAjax = false;
 
     /**
-     * @inheritdoc
-     */
-    public function getIsAjax()
-    {
-        return $this->isAjax;
-    }
-
-    /**
      * @param bool $isAjax
      */
     public function setIsAjax($isAjax)
     {
         $this->isAjax = $isAjax;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getIsAjax()
+    {
+        return $this->isAjax;
     }
 }

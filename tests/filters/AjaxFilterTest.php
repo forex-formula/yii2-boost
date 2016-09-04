@@ -13,12 +13,12 @@ class AjaxFilterTest extends TestCase
         /* @var $request \yii\boost\tests\Request */
         $request = Yii::$app->getRequest();
         $request->setIsAjax(true);
-        $this->assertEquals('ok', Yii::$app->runAction('test/get-ok'));
+        static::assertEquals('ok', Yii::$app->runAction('test/get-ok'));
     }
 
     public function testNonAjaxRequest()
     {
         $this->expectException('yii\web\BadRequestHttpException');
-        $this->assertEquals('ok', Yii::$app->runAction('test/get-ok'));
+        static::assertEquals('ok', Yii::$app->runAction('test/get-ok'));
     }
 }
