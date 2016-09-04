@@ -10,7 +10,7 @@ class StdoutTarget extends Target
 {
 
     /**
-     * @var array
+     * @var int[]
      */
     public $stderrLevels = [Logger::LEVEL_ERROR, Logger::LEVEL_WARNING];
 
