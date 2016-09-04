@@ -12,7 +12,7 @@ class PsrLogger extends AbstractLogger
 {
 
     /**
-     * @var array
+     * @var int[]
      */
     public $levelMap = [
         LogLevel::EMERGENCY => Logger::LEVEL_ERROR,

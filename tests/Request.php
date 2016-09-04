@@ -10,21 +10,21 @@ class Request extends WebRequest
     /**
      * @var bool
      */
-    private $isAjax = false;
+    private $fakeIsAjax = false;
+
+    /**
+     * @param bool $fakeIsAjax
+     */
+    public function setFakeIsAjax($fakeIsAjax)
+    {
+        $this->fakeIsAjax = $fakeIsAjax;
+    }
 
     /**
      * @inheritdoc
      */
     public function getIsAjax()
     {
-        return $this->isAjax;
-    }
-
-    /**
-     * @param bool $isAjax
-     */
-    public function setIsAjax($isAjax)
-    {
-        $this->isAjax = $isAjax;
+        return $this->fakeIsAjax;
     }
 }

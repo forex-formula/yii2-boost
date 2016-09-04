@@ -14,7 +14,7 @@ class ActiveQueryTest extends TestCase
         $mock = $this->createPartialMock(ActiveQuery::className(), ['getAlias']);
         $mock->method('getAlias')->willReturn('foo');
         /* @var $mock ActiveQuery */
-        $this->assertEquals('foo', $mock->alias);
+        static::assertEquals('foo', $mock->alias);
     }
 
     public function testMethodGetA()
@@ -22,7 +22,7 @@ class ActiveQueryTest extends TestCase
         $mock = $this->createPartialMock(ActiveQuery::className(), ['getAlias']);
         $mock->method('getAlias')->willReturn('foo');
         /* @var $mock ActiveQuery */
-        $this->assertEquals('foo', $mock->getA());
+        static::assertEquals('foo', $mock->getA());
     }
 
     public function testPropertyA()
@@ -30,7 +30,7 @@ class ActiveQueryTest extends TestCase
         $mock = $this->createPartialMock(ActiveQuery::className(), ['getAlias']);
         $mock->method('getAlias')->willReturn('foo');
         /* @var $mock ActiveQuery */
-        $this->assertEquals('foo', $mock->a);
+        static::assertEquals('foo', $mock->a);
     }
 
     public function testMethodA()
@@ -38,18 +38,18 @@ class ActiveQueryTest extends TestCase
         $mock = $this->createPartialMock(ActiveQuery::className(), ['getAlias']);
         $mock->method('getAlias')->willReturn('foo');
         /* @var $mock ActiveQuery */
-        $this->assertEquals('foo', $mock->a());
-        $this->assertEquals('foo.column', $mock->a('column'));
-        $this->assertEquals([], $mock->a([]));
-        $this->assertEquals(['foo.column'], $mock->a(['column']));
-        $this->assertEquals([
+        static::assertEquals('foo', $mock->a());
+        static::assertEquals('foo.column', $mock->a('column'));
+        static::assertEquals([], $mock->a([]));
+        static::assertEquals(['foo.column'], $mock->a(['column']));
+        static::assertEquals([
             'foo.column1',
             'foo.column2'
         ], $mock->a([
             'column1',
             'column2'
         ]));
-        $this->assertEquals([
+        static::assertEquals([
             'foo.column1' => 1,
             'foo.column2' => 2
         ], $mock->a([

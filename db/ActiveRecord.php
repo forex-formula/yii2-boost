@@ -9,12 +9,15 @@ use yii\boost\base\ModelDebugTrait;
 use ReflectionClass;
 use Yii;
 
+/**
+ * @property string $titleText
+ */
 class ActiveRecord extends BaseActiveRecord
 {
 
     use ModelDebugTrait;
 
-    const DISPLAY_FIELD_SEPARATOR = ' ';
+    const TITLE_SEPARATOR = ' ';
 
     /**
      * @inheritdoc
@@ -129,7 +132,7 @@ class ActiveRecord extends BaseActiveRecord
     /**
      * @return string[]|Expression
      */
-    public static function displayField()
+    public static function titleKey()
     {
         return static::primaryKey();
     }
@@ -137,13 +140,13 @@ class ActiveRecord extends BaseActiveRecord
     /**
      * @return string
      */
-    public function getDisplayField()
+    public function getTitleText()
     {
-        $displayField = static::displayField();
-        if (is_array($displayField)) {
-            return implode(static::DISPLAY_FIELD_SEPARATOR, $this->getAttributes($displayField));
+        $titleKey = static::titleKey();
+        if (is_array($titleKey)) {
+            return implode(static::TITLE_SEPARATOR, $this->getAttributes($titleKey));
         } else {
-            return implode(static::DISPLAY_FIELD_SEPARATOR, $this->getPrimaryKey(true));
+            return implode(static::TITLE_SEPARATOR, $this->getPrimaryKey(true));
         }
     }
 
