@@ -121,17 +121,17 @@ class ActiveQuery extends BaseActiveQuery
             throw new NotSupportedException('Primary key must be a single column.');
         }
         $this->orderBy($primaryKey[0])->indexBy($primaryKey[0]);
-        $displayField = $modelClass::displayField();
-        if (is_array($displayField)) {
-            $this->orderBy(array_fill_keys($displayField, SORT_ASC));
-            if (count($displayField) > 1) {
-                $separator = $modelClass::getDb()->quoteValue($modelClass::DISPLAY_FIELD_SEPARATOR);
-                $this->select(new Expression('CONCAT(' . implode(', ' . $separator . ', ', $this->a($displayField)) . ')'));
+        $titleKey = $modelClass::titleKey();
+        if (is_array($titleKey)) {
+            $this->orderBy(array_fill_keys($titleKey, SORT_ASC));
+            if (count($titleKey) > 1) {
+                $separator = $modelClass::getDb()->quoteValue($modelClass::TITLE_SEPARATOR);
+                $this->select(new Expression('CONCAT(' . implode(', ' . $separator . ', ', $this->a($titleKey)) . ')'));
             } else {
-                $this->select($displayField);
+                $this->select($titleKey);
             }
         } else {
-            $this->select($displayField);
+            $this->select($titleKey);
         }
         return $this;
     }
