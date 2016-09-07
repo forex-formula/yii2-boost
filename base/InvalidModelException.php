@@ -24,6 +24,11 @@ class InvalidModelException extends InvalidValueException
     public function __construct(Model $model, $message = null, $code = 0, Exception $previous = null)
     {
         $this->model = $model;
+        if (is_null($message) && $model->hasErrors()) {
+            $message = implode(' ', array_map(function ($errors) {
+                return implode(' ', $errors);
+            }, $model->getErrors()));
+        }
         parent::__construct($message, $code, $previous);
     }
 
