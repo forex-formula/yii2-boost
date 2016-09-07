@@ -73,6 +73,22 @@ class ActiveRecord extends BaseActiveRecord
     }
 
     /**
+     * @return bool
+     */
+    public static function tableIsView()
+    {
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function tableIsStatic()
+    {
+        return false;
+    }
+
+    /**
      * @return string[]
      */
     public static function singularRelations()
