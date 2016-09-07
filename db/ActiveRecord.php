@@ -152,31 +152,34 @@ class ActiveRecord extends BaseActiveRecord
 
     /**
      * @param string $name
-     * @return string
+     * @param bool $throwException
+     * @return string|null
      */
-    public function getRelationClass($name)
+    public function getRelationClass($name, $throwException = true)
     {
-        $relation = $this->getRelation($name, false);
+        $relation = $this->getRelation($name, $throwException);
         return $relation ? $relation->modelClass : null;
     }
 
     /**
      * @param string $name
-     * @return array
+     * @param bool $throwException
+     * @return array|null
      */
-    public function getRelationLink($name)
+    public function getRelationLink($name, $throwException = true)
     {
-        $relation = $this->getRelation($name, false);
+        $relation = $this->getRelation($name, $throwException);
         return $relation ? $relation->link : null;
     }
 
     /**
      * @param string $name
-     * @return array
+     * @param bool $throwException
+     * @return array|null
      */
-    public function getRelationConfig($name)
+    public function getRelationConfig($name, $throwException = true)
     {
-        $relation = $this->getRelation($name, false);
+        $relation = $this->getRelation($name, $throwException);
         return $relation ? [
             'class' => $relation->modelClass,
             'link' => $relation->link
