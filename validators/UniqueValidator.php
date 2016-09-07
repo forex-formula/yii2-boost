@@ -12,7 +12,7 @@ class UniqueValidator extends BaseUniqueValidator
      */
     public function validateAttribute($model, $attribute)
     {
-        if (is_array($this->targetAttribute) && (count($this->targetAttribute) >= 2)) {
+        if (is_array($this->targetAttribute) && (count($this->targetAttribute) > 1)) {
             $skip = false;
             $keyAttribute = $attribute;
             foreach ($this->targetAttribute as $key => $value) {
@@ -35,7 +35,7 @@ class UniqueValidator extends BaseUniqueValidator
      */
     public function addError($model, $attribute, $message, $params = [])
     {
-        if (is_array($this->targetAttribute) && (count($this->targetAttribute) >= 2)) {
+        if (is_array($this->targetAttribute) && (count($this->targetAttribute) > 1)) {
             foreach ($this->targetAttribute as $key => $value) {
                 $keyAttribute = is_int($key) ? $value : $key;
                 parent::addError($model, $keyAttribute, $message, $params);
