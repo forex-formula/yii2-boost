@@ -14,10 +14,12 @@ class Request extends WebRequest
 
     /**
      * @param bool $fakeIsAjax
+     * @return $this
      */
     public function setFakeIsAjax($fakeIsAjax)
     {
         $this->fakeIsAjax = $fakeIsAjax;
+        return $this;
     }
 
     /**
