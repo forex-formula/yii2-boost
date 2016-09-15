@@ -3,12 +3,12 @@
 namespace yii\boost\db;
 
 use yii\db\ActiveRecord as BaseActiveRecord;
-use yii\db\Expression;
 use yii\helpers\Inflector;
 use yii\boost\base\ModelDebugTrait;
 use ReflectionClass;
 use yii\validators\RequiredValidator;
 use Yii;
+use yii\db\Expression as YiiDbExpression;
 
 /**
  * @property string $titleText
@@ -42,9 +42,9 @@ class ActiveRecord extends BaseActiveRecord
     }
 
     /**
-     * @param string|array|Expression $condition
+     * @param string|array|YiiDbExpression $condition
      * @param array $params
-     * @param string|array|Expression $orderBy
+     * @param string|array|YiiDbExpression $orderBy
      * @return array
      */
     public static function findListItems($condition = null, $params = [], $orderBy = null)
@@ -61,7 +61,7 @@ class ActiveRecord extends BaseActiveRecord
 
     /**
      * @param array $condition
-     * @param string|array|Expression $orderBy
+     * @param string|array|YiiDbExpression $orderBy
      * @return array
      */
     public static function findFilterListItems(array $condition = [], $orderBy = null)
@@ -147,7 +147,7 @@ class ActiveRecord extends BaseActiveRecord
     }
 
     /**
-     * @return string[]|Expression
+     * @return string[]|YiiDbExpression
      */
     public static function titleKey()
     {
@@ -213,7 +213,7 @@ class ActiveRecord extends BaseActiveRecord
         foreach ($validators as $validator) {
             if ((!$validator instanceof RequiredValidator) && is_null($validator->when)) {
                 $validator->when = function (ActiveRecord $model, $attribute) {
-                    return !$model->$attribute instanceof Expression;
+                    return !$model->$attribute instanceof YiiDbExpression;
                 };
             }
         }
