@@ -7,6 +7,7 @@ use yii\db\Expression;
 use yii\helpers\Inflector;
 use yii\boost\base\ModelDebugTrait;
 use ReflectionClass;
+use yii\validators\RequiredValidator;
 use Yii;
 
 /**
@@ -210,7 +211,7 @@ class ActiveRecord extends BaseActiveRecord
         $validators = parent::createValidators();
         /* @var $validator \yii\validators\Validator */
         foreach ($validators as $validator) {
-            if (is_null($validator->when)) {
+            if ((!$validator instanceof RequiredValidator) && is_null($validator->when)) {
                 $validator->when = function (ActiveRecord $model, $attribute) {
                     return !$model->$attribute instanceof Expression;
                 };
