@@ -18,7 +18,7 @@ class AjaxFilterTest extends TestCase
 
     public function testNonAjaxRequest()
     {
-        $this->expectException('yii\web\BadRequestHttpException');
+        static::expectException('yii\web\BadRequestHttpException');
         static::assertEquals('ok', Yii::$app->runAction('test/get-ok'));
     }
 }
