@@ -90,7 +90,15 @@ class ActiveRecord extends BaseActiveRecord
     }
 
     /**
-     * @return string[]
+     * @return array
+     */
+    public static function allRelations()
+    {
+        return [];
+    }
+
+    /**
+     * @return array
      */
     public static function singularRelations()
     {
@@ -98,7 +106,7 @@ class ActiveRecord extends BaseActiveRecord
     }
 
     /**
-     * @return string[]
+     * @return array
      */
     public static function pluralRelations()
     {
