@@ -94,7 +94,7 @@ class ActiveRecord extends BaseActiveRecord
      */
     public static function allRelations()
     {
-        return [];
+        return array_merge(static::singularRelations(), static::pluralRelations());
     }
 
     /**
