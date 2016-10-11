@@ -21,6 +21,18 @@ class ActiveRecord extends BaseActiveRecord
     const TITLE_SEPARATOR = ' ';
 
     /**
+     * @param array $columns
+     * @param array $rows
+     * @return int
+     */
+    public static function batchInsert($columns, $rows)
+    {
+        $command = static::getDb()->createCommand();
+        $command->batchInsert(static::tableName(), $columns, $rows);
+        return $command->execute();
+    }
+
+    /**
      * @inheritdoc
      * @return ActiveQuery
      */
