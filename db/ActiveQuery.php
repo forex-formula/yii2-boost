@@ -110,6 +110,15 @@ class ActiveQuery extends BaseActiveQuery
     }
 
     /**
+     * @param array $columns
+     * @return $this
+     */
+    public function andWhereA(array $columns)
+    {
+        return $this->andWhere($this->a($columns));
+    }
+
+    /**
      * @return $this
      */
     public function listItems()
