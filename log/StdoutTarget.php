@@ -40,11 +40,6 @@ class StdoutTarget extends Target
     /**
      * @var bool
      */
-    private $stderrIsNotStdout = false;
-
-    /**
-     * @var bool
-     */
     private $stderrSupportsColors = false;
 
     /**
@@ -58,7 +53,6 @@ class StdoutTarget extends Target
     public function init()
     {
         parent::init();
-        $this->stderrIsNotStdout = fstat(\STDERR)['dev'] != fstat(\STDOUT)['dev'];
         $this->stderrSupportsColors = Console::streamSupportsAnsiColors(\STDERR);
         $this->stdoutSupportsColors = Console::streamSupportsAnsiColors(\STDOUT);
     }
@@ -71,7 +65,7 @@ class StdoutTarget extends Target
         foreach ($this->messages as $message) {
             $string = $this->formatMessage($message) . "\n";
             $level = $message[1];
-            if ($this->stderrIsNotStdout && in_array($level, $this->stderrLevels)) {
+            if (in_array($level, $this->stderrLevels)) {
                 if ($this->stderrSupportsColors) {
                     Console::stderr(Console::ansiFormat($string, $this->colorMap[$level]));
                 } else {
